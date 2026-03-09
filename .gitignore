@@ -1,0 +1,7 @@
+# Lẽ dĩ nhiên là phải giấu file này
+.env
+
+# Bỏ qua các file thực thi đã build ra
+*.exe
+*.out
+/backend-go 
