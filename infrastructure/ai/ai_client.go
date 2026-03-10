@@ -1,4 +1,3 @@
-// infrastructure/ai/ai_client.go
 package ai
 
 import (
@@ -45,6 +44,36 @@ func (c *HTTPClient) RegisterFace(images [][]byte) (*AIRegisterResponse, error) 
 	defer resp.Body.Close()
 
 	var result AIRegisterResponse
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, fmt.Errorf("lỗi parse kết quả từ AI: %v", err)
+	}
+
+	return &result, nil
+}
+
+type aiVerifyRequest struct {
+	Images []string `json:"images"`
+}
+
+func (c *HTTPClient) VerifyFace(images [][]byte) (*AIVerifyResponse, error) {
+	var base64Images []string
+	for _, img := range images {
+		base64Images = append(base64Images, encodeBase64(img))
+	}
+
+	reqBody := aiVerifyRequest{Images: base64Images}
+	jsonData, err := json.Marshal(reqBody)
+
+	// 3. Gọi API Python (Endpoint: /api/verify-face)
+	apiURL := c.BaseURL + "/api/verify-face"
+	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return nil, fmt.Errorf("không thể kết nối tới AI Service: %v", err)
+	}
+	defer resp.Body.Close()
+
+	// 4. Đọc kết quả
+	var result AIVerifyResponse
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		return nil, fmt.Errorf("lỗi parse kết quả từ AI: %v", err)
 	}

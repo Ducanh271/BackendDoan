@@ -6,22 +6,23 @@ import (
 )
 
 // SetupRoutes thiết lập toàn bộ các API endpoint cho hệ thống
-func SetupRoutes(r *gin.Engine, empHandler *handlers.EmployeeHandler) {
-	// Nhóm các API lại với prefix là /api
+func SetupRoutes(
+	r *gin.Engine,
+	empHandler *handlers.EmployeeHandler,
+	attHandler *handlers.AttendanceHandler,
+) {
 	api := r.Group("/api")
 	{
-		// Nhóm API liên quan đến Employee
 		employees := api.Group("/employees")
 		{
 			employees.POST("/register", empHandler.Register)
 			// Tương lai: employees.GET("/", empHandler.GetAll)
 			// Tương lai: employees.GET("/:id", empHandler.GetByID)
 		}
-
-		// Nhóm API liên quan đến Attendance (chuẩn bị sẵn chỗ)
-		// attendance := api.Group("/attendance")
-		// {
-		// 	attendance.POST("/verify", ...)
-		// }
+		attendance := api.Group("/attendance")
+		{
+			attendance.POST("/identify", attHandler.Identify)
+			// Sau này làm Android: attendance.POST("/check-in", AuthMiddleware, attHandler.CheckIn)
+		}
 	}
 }

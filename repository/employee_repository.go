@@ -96,3 +96,45 @@ func (r *MySQLEmployeeRepository) GetAll() ([]models.Employee, error) {
 
 	return employees, nil
 }
+
+func (r *MySQLEmployeeRepository) FindByID(id int) (*models.Employee, error) {
+	query := `
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, created_at, updated_at 
+		FROM employees 
+		WHERE id = ? AND status = 'ACTIVE'
+	`
+	row := r.DB.QueryRow(query, id)
+
+	var emp models.Employee
+	var embeddingJSON []byte
+
+	err := row.Scan(
+		&emp.ID,
+		&emp.EmployeeCode,
+		&emp.Name,
+		&emp.Email,
+		&emp.Phone,
+		&emp.DepartmentID,
+		&emp.PositionID,
+		&emp.HireDate,
+		&embeddingJSON,
+		&emp.Status,
+		&emp.CreatedAt,
+		&emp.UpdatedAt,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("không tìm thấy nhân viên hoặc tài khoản bị khóa")
+		}
+		return nil, fmt.Errorf("lỗi scan dữ liệu employee: %v", err)
+	}
+
+	if len(embeddingJSON) > 0 {
+		err = json.Unmarshal(embeddingJSON, &emp.Embedding)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi parse embedding: %v", err)
+		}
+	}
+
+	return &emp, nil
+}
