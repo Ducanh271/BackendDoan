@@ -15,7 +15,12 @@ type DBConfig struct {
 	URL  string
 }
 type Config struct {
-	DB DBConfig
+	DB           DBConfig
+	JWTSecret    string
+	SMTPHost     string
+	SMTPPort     string
+	SMTPEmail    string
+	SMTPPassword string
 }
 
 func LoadConfig() (Config, error) {
@@ -36,5 +41,11 @@ func LoadConfig() (Config, error) {
 		cfg.DB.Port,
 		cfg.DB.Name,
 	)
+	cfg.SMTPHost = os.Getenv("SMTP_HOST")
+	cfg.SMTPPort = os.Getenv("SMTP_PORT")
+	cfg.SMTPEmail = os.Getenv("SMTP_EMAIL")
+	cfg.SMTPPassword = os.Getenv("SMTP_PASSWORD")
+	cfg.JWTSecret = os.Getenv("JWT_SECRET")
+
 	return cfg, nil
 }

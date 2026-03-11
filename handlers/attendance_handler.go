@@ -30,8 +30,11 @@ func (h *AttendanceHandler) Identify(c *gin.Context) {
 	// Gọi luồng 1:N
 	emp, dist, aiResp, err := h.AttendanceService.IdentifyFace(req.Images)
 
-	// Nếu bị lỗi (AI chê fake, không thấy mặt, hoặc không khớp ai trong DB)
+	// TRƯỜNG HỢP 1: NẾU BỊ LỖI (AI chê fake, không thấy mặt, hoặc không khớp ai trong DB)
 	if err != nil {
+		// Gọi qua Service để lưu log âm thầm
+		_ = h.AttendanceService.LogAccessEvent(nil, "Cổng chính", "DENIED", dist, err.Error())
+
 		res := dto.VerifyAttendanceResponse{
 			Status:  "failed",
 			Message: err.Error(),
@@ -44,7 +47,12 @@ func (h *AttendanceHandler) Identify(c *gin.Context) {
 		return
 	}
 
-	// Nếu nhận diện thành công
+	// TRƯỜNG HỢP 2: NẾU NHẬN DIỆN THÀNH CÔNG
+
+	// Gọi qua Service để lưu log âm thầm
+	_ = h.AttendanceService.LogAccessEvent(&emp.ID, "Cổng chính", "GRANTED", dist, "")
+
+	// Trả kết quả thành công về Frontend
 	c.JSON(http.StatusOK, dto.VerifyAttendanceResponse{
 		Status:       "success",
 		Message:      "Nhận diện thành công!",

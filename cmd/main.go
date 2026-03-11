@@ -40,12 +40,15 @@ func main() {
 	aiClient := ai.NewAIClient(aiURL)
 
 	empRepo := repository.NewMySQLEmployeeRepository(db)
+	tokenRepo := repository.NewMySQLRefreshTokenRepository(db)
 
 	regService := service.NewRegisterService(empRepo, aiClient)
 	attService := service.NewAttendanceService(empRepo, aiClient)
+	authService := service.NewAuthService(empRepo, tokenRepo, cfg.JWTSecret, cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPEmail, cfg.SMTPPassword)
 
 	empHandler := handlers.NewEmployeeHandler(regService)
 	attHandler := handlers.NewAttendanceHandler(attService)
+	authHandler := handlers.NewAuthHandler(authService)
 
 	// 5. Thiết lập Router (Gin)
 	r := gin.Default()
@@ -57,7 +60,7 @@ func main() {
 	r.Use(cors.New(corsConfig))
 	// =======================================================
 
-	routes.SetupRoutes(r, empHandler, attHandler)
+	routes.SetupRoutes(r, empHandler, attHandler, authHandler)
 	// 6. Chạy Server
 	port := os.Getenv("PORT")
 	if port == "" {

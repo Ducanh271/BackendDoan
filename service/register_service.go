@@ -11,6 +11,7 @@ import (
 	"duckanh/backend-doan/infrastructure/ai"
 	"duckanh/backend-doan/models"
 	"duckanh/backend-doan/repository"
+	"duckanh/backend-doan/security"
 )
 
 type RegisterService struct {
@@ -63,6 +64,13 @@ func (s *RegisterService) RegisterEmployee(req dto.RegisterEmployeeRequest) (*dt
 
 	// 4. Nếu AI duyệt Pass -> Lắp ráp dữ liệu thành models.Employee
 	now := time.Now()
+	defaultPassword := req.EmployeeCode + "@123A"
+	hashedPassword, err := security.HashPassword(defaultPassword)
+
+	if err != nil {
+		return nil, fmt.Errorf("lỗi mã hóa mật khẩu: %v", err)
+	}
+
 	newEmployee := models.Employee{
 		EmployeeCode: req.EmployeeCode,
 		Name:         req.Name,
@@ -71,13 +79,15 @@ func (s *RegisterService) RegisterEmployee(req dto.RegisterEmployeeRequest) (*dt
 		DepartmentID: req.DepartmentID,
 		PositionID:   req.PositionID,
 		Embedding:    aiResp.Embedding, // Vector chuẩn 128 chiều đã được AI tính trung bình
+		PasswordHash: hashedPassword,   // Lưu chuỗi đã băm
+		IsFirstLogin: true,
 		Status:       "ACTIVE",
 		CreatedAt:    now,
 		UpdatedAt:    now,
 	}
 
 	// 5. Lưu xuống Database
-	err = s.Repo.Save(newEmployee)
+	err = s.Repo.Save(&newEmployee)
 	if err != nil {
 		return nil, fmt.Errorf("lỗi lưu database (có thể trùng mã NV/Email): %v", err)
 	}

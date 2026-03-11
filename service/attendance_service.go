@@ -1,16 +1,13 @@
 package service
 
 import (
-	"encoding/base64"
-	"errors"
-	"fmt"
-	"math"
-	"strings"
-
 	"duckanh/backend-doan/infrastructure/ai"
 	"duckanh/backend-doan/models"
 	"duckanh/backend-doan/repository"
 	"duckanh/backend-doan/utils"
+	"errors"
+	"fmt"
+	"math"
 )
 
 const FaceMatchThreshold = 0.45
@@ -27,23 +24,6 @@ func NewAttendanceService(repo repository.EmployeeRepository, aiClient ai.AIClie
 	}
 }
 
-// Hàm hỗ trợ giải mã NHIỀU ảnh
-func decodeBase64Images(b64Strings []string) ([][]byte, error) {
-	var imageBytes [][]byte
-	for _, b64Str := range b64Strings {
-		cleanBase64 := b64Str
-		if idx := strings.Index(cleanBase64, ","); idx != -1 {
-			cleanBase64 = cleanBase64[idx+1:]
-		}
-		decoded, err := base64.StdEncoding.DecodeString(cleanBase64)
-		if err != nil {
-			return nil, fmt.Errorf("lỗi giải mã ảnh base64: %v", err)
-		}
-		imageBytes = append(imageBytes, decoded)
-	}
-	return imageBytes, nil
-}
-
 // ==========================================
 // 1:1 - CHECK-IN TỪ APP ANDROID (Có ID từ Token)
 // ==========================================
@@ -53,7 +33,7 @@ func (s *AttendanceService) CheckIn(employeeID int, imagesBase64 []string) (*mod
 		return nil, 0, nil, err
 	}
 
-	imgBytes, err := decodeBase64Images(imagesBase64)
+	imgBytes, err := utils.DecodeBase64Images(imagesBase64)
 	if err != nil {
 		return nil, 0, nil, err
 	}
@@ -83,7 +63,7 @@ func (s *AttendanceService) CheckIn(employeeID int, imagesBase64 []string) (*mod
 // 1:N - IDENTIFY TỪ WEB QUẢN TRỊ (Không có ID)
 // ==========================================
 func (s *AttendanceService) IdentifyFace(imagesBase64 []string) (*models.Employee, float64, *ai.AIVerifyResponse, error) {
-	imgBytes, err := decodeBase64Images(imagesBase64)
+	imgBytes, err := utils.DecodeBase64Images(imagesBase64)
 	if err != nil {
 		return nil, 0, nil, err
 	}
@@ -120,4 +100,16 @@ func (s *AttendanceService) IdentifyFace(imagesBase64 []string) (*models.Employe
 	}
 
 	return bestMatch, minDist, aiResp, nil
+}
+
+func (s *AttendanceService) LogAccessEvent(employeeID *int, accessPoint string, status string, distance float64, failureReason string) error {
+	accessLog := models.AccessLog{
+		EmployeeID:         employeeID,
+		AccessPoint:        accessPoint,
+		Status:             status,
+		ConfidenceDistance: distance,
+		FailureReason:      failureReason,
+	}
+
+	return s.EmpRepo.LogAccess(accessLog)
 }
