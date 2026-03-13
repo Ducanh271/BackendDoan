@@ -45,8 +45,9 @@ func main() {
 	regService := service.NewRegisterService(empRepo, aiClient)
 	attService := service.NewAttendanceService(empRepo, aiClient)
 	authService := service.NewAuthService(empRepo, tokenRepo, cfg.JWTSecret, cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPEmail, cfg.SMTPPassword)
+	empService := service.NewEmployeeService(empRepo)
 
-	empHandler := handlers.NewEmployeeHandler(regService)
+	empHandler := handlers.NewEmployeeHandler(regService, empService)
 	attHandler := handlers.NewAttendanceHandler(attService)
 	authHandler := handlers.NewAuthHandler(authService)
 
@@ -60,7 +61,7 @@ func main() {
 	r.Use(cors.New(corsConfig))
 	// =======================================================
 
-	routes.SetupRoutes(r, empHandler, attHandler, authHandler)
+	routes.SetupRoutes(r, empHandler, attHandler, authHandler, cfg.JWTSecret)
 	// 6. Chạy Server
 	port := os.Getenv("PORT")
 	if port == "" {

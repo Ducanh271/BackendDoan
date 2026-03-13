@@ -1,5 +1,9 @@
 package dto
 
+import (
+	"time"
+)
+
 type RegisterEmployeeRequest struct {
 	EmployeeCode string   `json:"employee_code" binding:"required"`
 	Name         string   `json:"name" binding:"required"`
@@ -28,4 +32,16 @@ type VerifyAttendanceResponse struct {
 	EmployeeCode string      `json:"employee_code,omitempty"`
 	Distance     float64     `json:"distance,omitempty"`
 	Stats        interface{} `json:"stats,omitempty"` // Trả nguyên cục Stats về cho App/Web hiển thị
+}
+
+type ProfileResponse struct {
+	ID           int        `json:"id"`
+	EmployeeCode string     `json:"employee_code"`
+	Name         string     `json:"name"`
+	Email        string     `json:"email"`
+	Phone        string     `json:"phone"`
+	DepartmentID int        `json:"department_id"`
+	PositionID   int        `json:"position_id"`
+	HireDate     *time.Time `json:"hire_date"`
+	Status       string     `json:"status"`
 }

@@ -196,3 +196,41 @@ func (s *AuthService) VerifyOTPAndChangePassword(req dto.VerifyOTPAndChangePassw
 
 	return nil
 }
+
+func (s *AuthService) RefreshToken(req dto.RefreshTokenRequest) (*dto.RefreshTokenResponse, error) {
+	rt, err := s.TokenRepo.FindByToken(req.RefreshToken)
+	if err != nil {
+		return nil, errors.New("refresh token không hợp lệ hoặc đã bị thu hồi")
+	}
+
+	if rt.ExpiresAt.Before(time.Now()) {
+		_ = s.TokenRepo.DeleteByToken(rt.Token)
+		return nil, errors.New("phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại")
+	}
+
+	newAccessToken, err := security.GenerateAccessToken(rt.EmployeeID, s.JWTSecret)
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo access token mới")
+	}
+
+	newRefreshTokenStr, err := security.GenerateRefreshToken()
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo refresh token mới")
+	}
+
+	newRT := models.RefreshToken{
+		EmployeeID: rt.EmployeeID,
+		Token:      newRefreshTokenStr,
+		ExpiresAt:  time.Now().Add(30 * 24 * time.Hour),
+	}
+	if err := s.TokenRepo.Save(&newRT); err != nil {
+		return nil, errors.New("lỗi hệ thống khi lưu phiên đăng nhập mới")
+	}
+
+	_ = s.TokenRepo.DeleteByToken(rt.Token)
+
+	return &dto.RefreshTokenResponse{
+		AccessToken:  newAccessToken,
+		RefreshToken: newRefreshTokenStr,
+	}, nil
+}

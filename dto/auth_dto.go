@@ -27,3 +27,12 @@ type VerifyOTPAndChangePasswordRequest struct {
 	OTPCode      string `json:"otp_code" binding:"required"`
 	NewPassword  string `json:"new_password" binding:"required,min=6"`
 }
+
+type RefreshTokenRequest struct {
+	RefreshToken string `json:"refresh_token" binding:"required"`
+}
+
+type RefreshTokenResponse struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}

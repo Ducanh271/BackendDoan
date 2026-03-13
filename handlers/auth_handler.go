@@ -106,3 +106,29 @@ func (h *AuthHandler) VerifyOTPAndChangePassword(c *gin.Context) {
 		"message": "Đổi mật khẩu thành công! Tài khoản đã được kích hoạt.",
 	})
 }
+
+func (h *AuthHandler) RefreshToken(c *gin.Context) {
+	var req dto.RefreshTokenRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "Vui lòng cung cấp refresh_token",
+		})
+		return
+	}
+
+	res, err := h.AuthService.RefreshToken(req)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   res,
+	})
+}
