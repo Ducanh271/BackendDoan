@@ -52,8 +52,41 @@ func RequireAuth(secretKey string) gin.HandlerFunc {
 			if empID, ok := claims["employee_id"].(float64); ok {
 				c.Set("employee_id", int(empID))
 			}
+			if role, ok := claims["role"].(string); ok {
+				c.Set("role", role)
+			}
 		}
 
+		c.Next()
+	}
+}
+
+func RequireRole(allowedRoles ...string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		roleVal, exists := c.Get("role")
+		if !exists {
+			c.JSON(http.StatusForbidden, gin.H{"status": "failed", "message": "Không tìm thấy quyền hạn"})
+			c.Abort()
+			return
+		}
+
+		userRole := roleVal.(string)
+		isAllowed := false
+		for _, r := range allowedRoles {
+			if userRole == r {
+				isAllowed = true
+				break
+			}
+		}
+
+		if !isAllowed {
+			c.JSON(http.StatusForbidden, gin.H{
+				"status":  "failed",
+				"message": "Từ chối truy cập: Chỉ ADMIN mới có quyền thực hiện hành động này!",
+			})
+			c.Abort()
+			return
+		}
 		c.Next()
 	}
 }

@@ -2,6 +2,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"duckanh/backend-doan/dto"
@@ -45,32 +46,6 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	})
 }
 
-// func (h *AuthHandler) ChangeFirstPassword(c *gin.Context) {
-// 	var req dto.ChangeFirstPasswordRequest
-//
-// 	if err := c.ShouldBindJSON(&req); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{
-// 			"status":  "failed",
-// 			"message": "Dữ liệu không hợp lệ, vui lòng kiểm tra lại (mật khẩu mới phải từ 6 ký tự)",
-// 		})
-// 		return
-// 	}
-//
-// 	err := h.AuthService.ChangeFirstPassword(req)
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{
-// 			"status":  "failed",
-// 			"message": err.Error(),
-// 		})
-// 		return
-// 	}
-//
-// 	c.JSON(http.StatusOK, gin.H{
-// 		"status":  "success",
-// 		"message": "Đổi mật khẩu thành công! Vui lòng đăng nhập lại với mật khẩu mới.",
-// 	})
-// }
-
 func (h *AuthHandler) RequestFirstLoginOTP(c *gin.Context) {
 	var req dto.RequestOTPRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -109,6 +84,7 @@ func (h *AuthHandler) VerifyOTPAndChangePassword(c *gin.Context) {
 
 func (h *AuthHandler) RefreshToken(c *gin.Context) {
 	var req dto.RefreshTokenRequest
+	fmt.Println("refresh token: ", req.RefreshToken)
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -130,5 +106,26 @@ func (h *AuthHandler) RefreshToken(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   res,
+	})
+}
+
+func (h *AuthHandler) LogOut(c *gin.Context) {
+	empIDVal, exists := c.Get("employee_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "failed", "message": "Không xác định được danh tính"})
+		return
+	}
+
+	empID := empIDVal.(int)
+
+	err := h.AuthService.Logout(empID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Đăng xuất thành công",
 	})
 }

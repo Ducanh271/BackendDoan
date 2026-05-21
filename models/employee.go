@@ -8,6 +8,7 @@ type Employee struct {
 	Name         string     `json:"name"`
 	Email        *string    `json:"email"`
 	PasswordHash string     `json:"-"`
+	Role         string     `json:"role"`
 	IsFirstLogin bool       `json:"is_first_login"`
 	OTPCode      *string    `json:"otp_code"`
 	OTPExpiresAt *time.Time `json:"otp_expires_at"`

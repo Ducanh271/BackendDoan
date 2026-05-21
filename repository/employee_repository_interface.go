@@ -13,4 +13,5 @@ type EmployeeRepository interface {
 	FindByEmployeeCode(code string) (*models.Employee, error)
 	UpdatePasswordAndStatus(employeeID int, newHash string, isFirstLogin bool) error
 	UpdateOTP(employeeID int, otpCode string, expiresAt time.Time) error
+	DeleteRefreshToken(employeeID int) error
 }

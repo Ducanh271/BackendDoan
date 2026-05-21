@@ -1,0 +1,2272 @@
+
+
+================================================================================
+File: ./go.mod
+================================================================================
+
+module duckanh/backend-doan
+
+go 1.25.0
+
+require (
+	github.com/gin-contrib/cors v1.7.6
+	github.com/gin-gonic/gin v1.12.0
+	github.com/go-sql-driver/mysql v1.9.3
+	github.com/joho/godotenv v1.5.1
+)
+
+require (
+	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/bytedance/gopkg v0.1.3 // indirect
+	github.com/bytedance/sonic v1.15.0 // indirect
+	github.com/bytedance/sonic/loader v0.5.0 // indirect
+	github.com/cloudwego/base64x v0.1.6 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
+	github.com/gin-contrib/sse v1.1.0 // indirect
+	github.com/go-playground/locales v0.14.1 // indirect
+	github.com/go-playground/universal-translator v0.18.1 // indirect
+	github.com/go-playground/validator/v10 v10.30.1 // indirect
+	github.com/goccy/go-json v0.10.5 // indirect
+	github.com/goccy/go-yaml v1.19.2 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
+	github.com/leodido/go-urn v1.4.0 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
+	github.com/quic-go/qpack v0.6.0 // indirect
+	github.com/quic-go/quic-go v0.59.0 // indirect
+	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
+	github.com/ugorji/go/codec v1.3.1 // indirect
+	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
+	golang.org/x/arch v0.22.0 // indirect
+	golang.org/x/crypto v0.48.0 // indirect
+	golang.org/x/net v0.51.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0 // indirect
+	google.golang.org/protobuf v1.36.10 // indirect
+)
+
+
+================================================================================
+File: ./go.sum
+================================================================================
+
+filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+filippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=
+github.com/bytedance/gopkg v0.1.3 h1:TPBSwH8RsouGCBcMBktLt1AymVo2TVsBVCY4b6TnZ/M=
+github.com/bytedance/gopkg v0.1.3/go.mod h1:576VvJ+eJgyCzdjS+c4+77QF3p7ubbtiKARP3TxducM=
+github.com/bytedance/sonic v1.15.0 h1:/PXeWFaR5ElNcVE84U0dOHjiMHQOwNIx3K4ymzh/uSE=
+github.com/bytedance/sonic v1.15.0/go.mod h1:tFkWrPz0/CUCLEF4ri4UkHekCIcdnkqXw9VduqpJh0k=
+github.com/bytedance/sonic/loader v0.5.0 h1:gXH3KVnatgY7loH5/TkeVyXPfESoqSBSBEiDd5VjlgE=
+github.com/bytedance/sonic/loader v0.5.0/go.mod h1:AR4NYCk5DdzZizZ5djGqQ92eEhCCcdf5x77udYiSJRo=
+github.com/cloudwego/base64x v0.1.6 h1:t11wG9AECkCDk5fMSoxmufanudBtJ+/HemLstXDLI2M=
+github.com/cloudwego/base64x v0.1.6/go.mod h1:OFcloc187FXDaYHvrNIjxSe8ncn0OOM8gEHfghB2IPU=
+github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/gabriel-vasile/mimetype v1.4.12 h1:e9hWvmLYvtp846tLHam2o++qitpguFiYCKbn0w9jyqw=
+github.com/gabriel-vasile/mimetype v1.4.12/go.mod h1:d+9Oxyo1wTzWdyVUPMmXFvp4F9tea18J8ufA774AB3s=
+github.com/gin-contrib/cors v1.7.6 h1:3gQ8GMzs1Ylpf70y8bMw4fVpycXIeX1ZemuSQIsnQQY=
+github.com/gin-contrib/cors v1.7.6/go.mod h1:Ulcl+xN4jel9t1Ry8vqph23a60FwH9xVLd+3ykmTjOk=
+github.com/gin-contrib/sse v1.1.0 h1:n0w2GMuUpWDVp7qSpvze6fAu9iRxJY4Hmj6AmBOU05w=
+github.com/gin-contrib/sse v1.1.0/go.mod h1:hxRZ5gVpWMT7Z0B0gSNYqqsSCNIJMjzvm6fqCz9vjwM=
+github.com/gin-gonic/gin v1.12.0 h1:b3YAbrZtnf8N//yjKeU2+MQsh2mY5htkZidOM7O0wG8=
+github.com/gin-gonic/gin v1.12.0/go.mod h1:VxccKfsSllpKshkBWgVgRniFFAzFb9csfngsqANjnLc=
+github.com/go-playground/assert/v2 v2.2.0 h1:JvknZsQTYeFEAhQwI4qEt9cyV5ONwRHC+lYKSsYSR8s=
+github.com/go-playground/assert/v2 v2.2.0/go.mod h1:VDjEfimB/XKnb+ZQfWdccd7VUvScMdVu0Titje2rxJ4=
+github.com/go-playground/locales v0.14.1 h1:EWaQ/wswjilfKLTECiXz7Rh+3BjFhfDFKv/oXslEjJA=
+github.com/go-playground/locales v0.14.1/go.mod h1:hxrqLVvrK65+Rwrd5Fc6F2O76J/NuW9t0sjnWqG1slY=
+github.com/go-playground/universal-translator v0.18.1 h1:Bcnm0ZwsGyWbCzImXv+pAJnYK9S473LQFuzCbDbfSFY=
+github.com/go-playground/universal-translator v0.18.1/go.mod h1:xekY+UJKNuX9WP91TpwSH2VMlDf28Uj24BCp08ZFTUY=
+github.com/go-playground/validator/v10 v10.30.1 h1:f3zDSN/zOma+w6+1Wswgd9fLkdwy06ntQJp0BBvFG0w=
+github.com/go-playground/validator/v10 v10.30.1/go.mod h1:oSuBIQzuJxL//3MelwSLD5hc2Tu889bF0Idm9Dg26cM=
+github.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=
+github.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=
+github.com/goccy/go-json v0.10.5 h1:Fq85nIqj+gXn/S5ahsiTlK3TmC85qgirsdTP/+DeaC4=
+github.com/goccy/go-json v0.10.5/go.mod h1:oq7eo15ShAhp70Anwd5lgX2pLfOS3QCiwU/PULtXL6M=
+github.com/goccy/go-yaml v1.19.2 h1:PmFC1S6h8ljIz6gMRBopkjP1TVT7xuwrButHID66PoM=
+github.com/goccy/go-yaml v1.19.2/go.mod h1:XBurs7gK8ATbW4ZPGKgcbrY1Br56PdM69F7LkFRi1kA=
+github.com/golang-jwt/jwt/v5 v5.3.1 h1:kYf81DTWFe7t+1VvL7eS+jKFVWaUnK9cB1qbwn63YCY=
+github.com/golang-jwt/jwt/v5 v5.3.1/go.mod h1:fxCRLWMO43lRc8nhHWY6LGqRcf+1gQWArsqaEUEa5bE=
+github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
+github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
+github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
+github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
+github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
+github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
+github.com/klauspost/cpuid/v2 v2.3.0 h1:S4CRMLnYUhGeDFDqkGriYKdfoFlDnMtqTiI/sFzhA9Y=
+github.com/klauspost/cpuid/v2 v2.3.0/go.mod h1:hqwkgyIinND0mEev00jJYCxPNVRVXFQeu1XKlok6oO0=
+github.com/leodido/go-urn v1.4.0 h1:WT9HwE9SGECu3lg4d/dIA+jxlljEa1/ffXKmRjqdmIQ=
+github.com/leodido/go-urn v1.4.0/go.mod h1:bvxc+MVxLKB4z00jd1z+Dvzr47oO32F/QSNjSBOlFxI=
+github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
+github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
+github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
+github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=
+github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
+github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
+github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
+github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=
+github.com/pelletier/go-toml/v2 v2.2.4/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
+github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/quic-go/qpack v0.6.0 h1:g7W+BMYynC1LbYLSqRt8PBg5Tgwxn214ZZR34VIOjz8=
+github.com/quic-go/qpack v0.6.0/go.mod h1:lUpLKChi8njB4ty2bFLX2x4gzDqXwUpaO1DP9qMDZII=
+github.com/quic-go/quic-go v0.59.0 h1:OLJkp1Mlm/aS7dpKgTc6cnpynnD2Xg7C1pwL6vy/SAw=
+github.com/quic-go/quic-go v0.59.0/go.mod h1:upnsH4Ju1YkqpLXC305eW3yDZ4NfnNbmQRCMWS58IKU=
+github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
+github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
+github.com/stretchr/objx v0.5.2/go.mod h1:FRsXN1f5AsAjCGJKqEizvkpNtU+EGNCLh3NxZ/8L+MA=
+github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
+github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
+github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
+github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
+github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
+github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
+github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
+github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
+github.com/ugorji/go/codec v1.3.1 h1:waO7eEiFDwidsBN6agj1vJQ4AG7lh2yqXyOXqhgQuyY=
+github.com/ugorji/go/codec v1.3.1/go.mod h1:pRBVtBSKl77K30Bv8R2P+cLSGaTtex6fsA2Wjqmfxj4=
+go.mongodb.org/mongo-driver/v2 v2.5.0 h1:yXUhImUjjAInNcpTcAlPHiT7bIXhshCTL3jVBkF3xaE=
+go.mongodb.org/mongo-driver/v2 v2.5.0/go.mod h1:yOI9kBsufol30iFsl1slpdq1I0eHPzybRWdyYUs8K/0=
+go.uber.org/mock v0.6.0 h1:hyF9dfmbgIX5EfOdasqLsWD6xqpNZlXblLB/Dbnwv3Y=
+go.uber.org/mock v0.6.0/go.mod h1:KiVJ4BqZJaMj4svdfmHM0AUx4NJYO8ZNpPnZn1Z+BBU=
+golang.org/x/arch v0.22.0 h1:c/Zle32i5ttqRXjdLyyHZESLD/bB90DCU1g9l/0YBDI=
+golang.org/x/arch v0.22.0/go.mod h1:dNHoOeKiyja7GTvF9NJS1l3Z2yntpQNzgrjh1cU103A=
+golang.org/x/crypto v0.48.0 h1:/VRzVqiRSggnhY7gNRxPauEQ5Drw9haKdM0jqfcCFts=
+golang.org/x/crypto v0.48.0/go.mod h1:r0kV5h3qnFPlQnBSrULhlsRfryS2pmewsg+XfMgkVos=
+golang.org/x/net v0.51.0 h1:94R/GTO7mt3/4wIKpcR5gkGmRLOuE/2hNGeWq/GBIFo=
+golang.org/x/net v0.51.0/go.mod h1:aamm+2QF5ogm02fjy5Bb7CQ0WMt1/WVM7FtyaTLlA9Y=
+golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.41.0 h1:Ivj+2Cp/ylzLiEU89QhWblYnOE9zerudt9Ftecq2C6k=
+golang.org/x/sys v0.41.0/go.mod h1:OgkHotnGiDImocRcuBABYBEXf8A9a87e/uXjp9XT3ks=
+golang.org/x/text v0.34.0 h1:oL/Qq0Kdaqxa1KbNeMKwQq0reLCCaFtqu2eNuSeNHbk=
+golang.org/x/text v0.34.0/go.mod h1:homfLqTYRFyVYemLBFl5GgL/DWEiH5wcsQ5gSh1yziA=
+google.golang.org/protobuf v1.36.10 h1:AYd7cD/uASjIL6Q9LiTjz8JLcrh/88q5UObnmY3aOOE=
+google.golang.org/protobuf v1.36.10/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+
+
+================================================================================
+File: ./makefile
+================================================================================
+
+# Makefile cho dự án Go
+
+.PHONY: help run dev build tidy test clean
+
+help:               ## Hiển thị các lệnh có sẵn
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+run:                ## Chạy ứng dụng (không reload, ổn định)
+	go run ./cmd/main.go
+
+dev:                ## Chạy dev mode với auto-reload (dùng air - khuyến nghị)
+	air
+
+build:              ## Build binary (tên mặc định là tên folder hoặc chỉ định)
+	go build -o bin/app ./cmd/main.go
+
+tidy:               ## Tidy modules và format code
+	go mod tidy
+	go fmt ./...
+
+test:               ## Chạy tất cả test
+	go test -v ./...
+
+clean:              ## Xóa binary, cache...
+	rm -rf bin/
+	go clean -cache -testcache
+
+# Nếu main.go nằm ở cmd/server hoặc cmd/api thì thay ./cmd/main.go thành ./cmd/server hoặc ./cmd/api
+
+
+================================================================================
+File: ./cmd/main.go
+================================================================================
+
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"duckanh/backend-doan/config"
+	"duckanh/backend-doan/database"
+	"duckanh/backend-doan/handlers"
+	"duckanh/backend-doan/infrastructure/ai"
+	"duckanh/backend-doan/repository"
+	"duckanh/backend-doan/routes"
+	"duckanh/backend-doan/service"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	fmt.Println("🚀 Khởi động hệ thống Backend...")
+
+	// 1. Load cấu hình
+	cfg, err := config.LoadConfig()
+	if err != nil {
+		log.Println("⚠️ Cảnh báo:", err)
+	}
+
+	// 2. Kết nối DB
+	db := database.Connect(cfg.DB.URL)
+	defer db.Close()
+
+	// 3. Cấu hình AI
+	aiURL := os.Getenv("AI_SERVICE_URL")
+	if aiURL == "" {
+		aiURL = "http://127.0.0.1:8000" // Cổng của Python FastAPI
+	}
+
+	// 4. Khởi tạo các "Khối Lego" (Dependency Injection)
+	aiClient := ai.NewAIClient(aiURL, 5)
+
+	empRepo := repository.NewMySQLEmployeeRepository(db)
+	tokenRepo := repository.NewMySQLRefreshTokenRepository(db)
+
+	regService := service.NewRegisterService(empRepo, aiClient)
+	attService := service.NewAttendanceService(empRepo, aiClient)
+	authService := service.NewAuthService(empRepo, tokenRepo, cfg.JWTSecret, cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPEmail, cfg.SMTPPassword)
+	empService := service.NewEmployeeService(empRepo)
+
+	empHandler := handlers.NewEmployeeHandler(regService, empService)
+	attHandler := handlers.NewAttendanceHandler(attService)
+	authHandler := handlers.NewAuthHandler(authService)
+
+	// 5. Thiết lập Router (Gin)
+	r := gin.Default()
+
+	// === BẮT BUỘC PHẢI CÓ ĐOẠN NÀY ĐỂ REACT GỌI ĐƯỢC API ===
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true // Cho phép mọi Frontend gọi vào
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	r.Use(cors.New(corsConfig))
+	// =======================================================
+
+	routes.SetupRoutes(r, empHandler, attHandler, authHandler, cfg.JWTSecret)
+	// 6. Chạy Server
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	fmt.Printf("✅ Server Backend đang chạy tại http://localhost:%s\n", port)
+
+	if err := r.Run(":" + port); err != nil {
+		log.Fatal("❌ Lỗi khởi chạy server:", err)
+	}
+}
+
+
+================================================================================
+File: ./utils/similarity.go
+================================================================================
+
+package utils
+
+import (
+	"encoding/base64"
+	"fmt"
+	"math"
+	"strings"
+)
+
+func CosineSimilarity(a, b []float64) float64 {
+	if len(a) != len(b) {
+		return 0
+	}
+
+	var dot, normA, normB float64
+
+	for i := 0; i < len(a); i++ {
+		dot += a[i] * b[i]
+		normA += a[i] * a[i]
+		normB += b[i] * b[i]
+	}
+
+	return dot / (math.Sqrt(normA) * math.Sqrt(normB))
+}
+func EuclideanDistance(a, b []float64) float64 {
+	if len(a) != len(b) {
+		return math.MaxFloat64 // Trả về vô cùng nếu lỗi độ dài
+	}
+
+	var sum float64
+	for i := 0; i < len(a); i++ {
+		diff := a[i] - b[i]
+		sum += diff * diff
+	}
+
+	return math.Sqrt(sum)
+}
+
+func DecodeBase64Images(b64Strings []string) ([][]byte, error) {
+	var imageBytes [][]byte
+	for _, b64Str := range b64Strings {
+		cleanBase64 := b64Str
+		if idx := strings.Index(cleanBase64, ","); idx != -1 {
+			cleanBase64 = cleanBase64[idx+1:]
+		}
+		decoded, err := base64.StdEncoding.DecodeString(cleanBase64)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi giải mã ảnh base64: %v", err)
+		}
+		imageBytes = append(imageBytes, decoded)
+	}
+	return imageBytes, nil
+}
+
+
+================================================================================
+File: ./utils/email.go
+================================================================================
+
+package utils
+
+import (
+	"fmt"
+	"net/smtp"
+)
+
+func SendOTPEmail(toEmail, employeeName, otpCode, smtpHost, smtpPort, senderEmail, senderPass string) error {
+
+	auth := smtp.PlainAuth("", senderEmail, senderPass, smtpHost)
+
+	subject := "Subject: Mã xác thực đổi mật khẩu hệ thống DeepGuard\n"
+	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+
+	body := fmt.Sprintf(`
+		<h3>Xin chào %s,</h3>
+		<p>Bạn đã yêu cầu đổi mật khẩu lần đầu cho tài khoản trên hệ thống DeepGuard.</p>
+		<p>Mã xác thực (OTP) của bạn là: <b style="font-size: 20px; color: blue;">%s</b></p>
+		<p>Mã này sẽ hết hạn trong 5 phút. Tuyệt đối không chia sẻ mã này cho bất kỳ ai.</p>
+		<br/>
+		<p>Trân trọng,<br/>Đội ngũ DeepGuard Security.</p>
+	`, employeeName, otpCode)
+
+	msg := []byte(subject + mime + body)
+
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, senderEmail, []string{toEmail}, msg)
+	if err != nil {
+		return fmt.Errorf("không thể gửi email: %v", err)
+	}
+	return nil
+}
+
+
+================================================================================
+File: ./models/position.go
+================================================================================
+
+package models
+
+type Position struct {
+	ID          int    `json:"int"`
+	Title       string `json:"title"`
+	SalaryGrade string `json:"salary_grade"`
+}
+
+
+================================================================================
+File: ./models/department.go
+================================================================================
+
+package models
+
+type Department struct {
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	ManagerID *int   `json:"manager_id"`
+}
+
+
+================================================================================
+File: ./models/attendance_record.go
+================================================================================
+
+package models
+
+import "time"
+
+type AttendanceRecord struct {
+	ID         int        `json:"id"`
+	EmployeeID int        `json:"employee_id"`
+	Date       string     `json:"date"` // Lưu dạng "YYYY-MM-DD"
+	CheckIn    time.Time  `json:"check_in"`
+	CheckOut   *time.Time `json:"check_out"` // Dùng con trỏ vì ban đầu check_out sẽ là NULL
+	Location   string     `json:"location"`
+	Method     string     `json:"method"`
+	CreatedAt  time.Time  `json:"created_at"`
+}
+
+
+================================================================================
+File: ./models/access_log.go
+================================================================================
+
+package models
+
+import (
+	"time"
+)
+
+type AccessLog struct {
+	ID                 int       `json:"id"`
+	EmployeeID         *int      `json:"employee_id"`
+	AccessPoint        string    `json:"access_point"`
+	ActionTime         time.Time `json:"action_time"`
+	Status             string    `json:"status"`
+	ConfidenceDistance float64   `json:"confidence_distance"`
+	FailureReason      string    `json:"failure_reason"`
+}
+
+
+================================================================================
+File: ./models/refresh_token.go
+================================================================================
+
+package models
+
+import "time"
+
+type RefreshToken struct {
+	ID         int       `json:"id"`
+	EmployeeID int       `json:"employee_id"`
+	Token      string    `json:"token"`
+	ExpiresAt  time.Time `json:"expires_at"`
+	CreatedAt  time.Time `json:"created_at"`
+}
+
+
+================================================================================
+File: ./models/employee.go
+================================================================================
+
+package models
+
+import "time"
+
+type Employee struct {
+	ID           int        `json:"id"`
+	EmployeeCode string     `json:"employee_code"`
+	Name         string     `json:"name"`
+	Email        *string    `json:"email"`
+	PasswordHash string     `json:"-"`
+	IsFirstLogin bool       `json:"is_first_login"`
+	OTPCode      *string    `json:"otp_code"`
+	OTPExpiresAt *time.Time `json:"otp_expires_at"`
+	Phone        *string    `json:"phone"`
+	DepartmentID *int       `json:"department_id"`
+	PositionID   *int       `json:"position_id"`
+	HireDate     *time.Time `json:"hire_date"`
+	Embedding    []float64  `json:"-"`
+	Status       string     `json:"status"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+}
+
+
+================================================================================
+File: ./repository/refresh_token_repo_interface.go
+================================================================================
+
+package repository
+
+import "duckanh/backend-doan/models"
+
+type RefreshTokenRepository interface {
+	Save(token *models.RefreshToken) error
+	FindByToken(tokenString string) (*models.RefreshToken, error)
+	DeleteByToken(tokenString string) error
+	DeleteAllByEmployeeID(employeeID int) error // Dùng khi muốn "Đăng xuất khỏi mọi thiết bị"
+}
+
+
+================================================================================
+File: ./repository/refresh_token_repository.go
+================================================================================
+
+package repository
+
+import (
+	"database/sql"
+	"duckanh/backend-doan/models"
+	"fmt"
+)
+
+type MySQLRefreshTokenRepository struct {
+	DB *sql.DB
+}
+
+func NewMySQLRefreshTokenRepository(db *sql.DB) RefreshTokenRepository {
+	return &MySQLRefreshTokenRepository{DB: db}
+}
+
+func (r *MySQLRefreshTokenRepository) Save(token *models.RefreshToken) error {
+	query := `
+		INSERT INTO refresh_tokens (employee_id, token, expires_at)
+		VALUES (?, ?, ?)
+	`
+	result, err := r.DB.Exec(query, token.EmployeeID, token.Token, token.ExpiresAt)
+	if err != nil {
+		return fmt.Errorf("lỗi lưu refresh token: %v", err)
+	}
+
+	id, _ := result.LastInsertId()
+	token.ID = int(id)
+	return nil
+}
+
+func (r *MySQLRefreshTokenRepository) FindByToken(tokenString string) (*models.RefreshToken, error) {
+	query := `
+		SELECT id, employee_id, token, expires_at, created_at 
+		FROM refresh_tokens 
+		WHERE token = ?
+	`
+	var t models.RefreshToken
+	err := r.DB.QueryRow(query, tokenString).Scan(
+		&t.ID,
+		&t.EmployeeID,
+		&t.Token,
+		&t.ExpiresAt,
+		&t.CreatedAt,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("không tìm thấy token hoặc token đã bị thu hồi")
+		}
+		return nil, fmt.Errorf("lỗi truy vấn token: %v", err)
+	}
+
+	return &t, nil
+}
+
+func (r *MySQLRefreshTokenRepository) DeleteByToken(tokenString string) error {
+	query := `DELETE FROM refresh_tokens WHERE token = ?`
+	_, err := r.DB.Exec(query, tokenString)
+	return err
+}
+
+func (r *MySQLRefreshTokenRepository) DeleteAllByEmployeeID(employeeID int) error {
+	query := `DELETE FROM refresh_tokens WHERE employee_id = ?`
+	_, err := r.DB.Exec(query, employeeID)
+	return err
+}
+
+
+================================================================================
+File: ./repository/employee_repository_interface.go
+================================================================================
+
+package repository
+
+import (
+	"duckanh/backend-doan/models"
+	"time"
+)
+
+type EmployeeRepository interface {
+	Save(employee *models.Employee) error
+	GetAll() ([]models.Employee, error)
+	FindByID(ID int) (*models.Employee, error)
+	LogAccess(log models.AccessLog) error
+	FindByEmployeeCode(code string) (*models.Employee, error)
+	UpdatePasswordAndStatus(employeeID int, newHash string, isFirstLogin bool) error
+	UpdateOTP(employeeID int, otpCode string, expiresAt time.Time) error
+	DeleteRefreshToken(employeeID int) error
+}
+
+
+================================================================================
+File: ./repository/employee_repository.go
+================================================================================
+
+package repository
+
+import (
+	"database/sql"
+	"duckanh/backend-doan/models"
+	"encoding/json"
+	"fmt"
+	"time"
+)
+
+type MySQLEmployeeRepository struct {
+	DB *sql.DB
+}
+
+func NewMySQLEmployeeRepository(db *sql.DB) EmployeeRepository {
+	return &MySQLEmployeeRepository{DB: db}
+}
+
+func (r *MySQLEmployeeRepository) Save(emp *models.Employee) error {
+	embeddingJSON, err := json.Marshal(emp.Embedding)
+	if err != nil {
+		return fmt.Errorf("lỗi endcode embedding: %v", err)
+	}
+
+	// Cập nhật câu query: thêm password_hash và is_first_login (tổng cộng 13 dấu ?)
+	query := `
+		INSERT INTO employees (
+			employee_code, name, email, phone, department_id, position_id, 
+			hire_date, embedding, status, created_at, updated_at, 
+			password_hash, is_first_login
+		)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	`
+	now := time.Now()
+
+	status := "ACTIVE"
+	if emp.Status != "" {
+		status = emp.Status
+	}
+
+	_, err = r.DB.Exec(query,
+		emp.EmployeeCode,
+		emp.Name,
+		emp.Email,
+		emp.Phone,
+		emp.DepartmentID,
+		emp.PositionID,
+		emp.HireDate,
+		embeddingJSON,
+		status,
+		now,
+		now,
+		emp.PasswordHash,
+		emp.IsFirstLogin,
+	)
+
+	return err
+}
+func (r *MySQLEmployeeRepository) GetAll() ([]models.Employee, error) {
+	// Chỉ lấy những nhân viên đang ACTIVE (đang làm việc) để so khớp khuôn mặt
+	query := `
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, created_at, updated_at 
+		FROM employees 
+		WHERE status = 'ACTIVE'
+	`
+	rows, err := r.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var employees []models.Employee
+	for rows.Next() {
+		var emp models.Employee
+		var embeddingJSON []byte
+		err := rows.Scan(
+			&emp.ID,
+			&emp.EmployeeCode,
+			&emp.Name,
+			&emp.Email,
+			&emp.Phone,
+			&emp.DepartmentID,
+			&emp.PositionID,
+			&emp.HireDate,
+			&embeddingJSON,
+			&emp.Status,
+			&emp.CreatedAt,
+			&emp.UpdatedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi scan dữ liệu employee: %v", err)
+		}
+
+		if len(embeddingJSON) > 0 {
+			err = json.Unmarshal(embeddingJSON, &emp.Embedding)
+			if err != nil {
+				return nil, fmt.Errorf("lỗi parse embedding nhân viên %s: %v", emp.Name, err)
+			}
+		}
+
+		employees = append(employees, emp)
+	}
+
+	return employees, nil
+}
+
+func (r *MySQLEmployeeRepository) FindByID(id int) (*models.Employee, error) {
+	query := `
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, created_at, updated_at 
+		FROM employees 
+		WHERE id = ? AND status = 'ACTIVE'
+	`
+	row := r.DB.QueryRow(query, id)
+
+	var emp models.Employee
+	var embeddingJSON []byte
+
+	err := row.Scan(
+		&emp.ID,
+		&emp.EmployeeCode,
+		&emp.Name,
+		&emp.Email,
+		&emp.Phone,
+		&emp.DepartmentID,
+		&emp.PositionID,
+		&emp.HireDate,
+		&embeddingJSON,
+		&emp.Status,
+		&emp.CreatedAt,
+		&emp.UpdatedAt,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("không tìm thấy nhân viên hoặc tài khoản bị khóa")
+		}
+		return nil, fmt.Errorf("lỗi scan dữ liệu employee: %v", err)
+	}
+
+	if len(embeddingJSON) > 0 {
+		err = json.Unmarshal(embeddingJSON, &emp.Embedding)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi parse embedding: %v", err)
+		}
+	}
+
+	return &emp, nil
+}
+
+func (r *MySQLEmployeeRepository) LogAccess(log models.AccessLog) error {
+	query := `INSERT INTO access_logs (employee_id, access_point, status, confidence_distance, failure_reason) VALUES (?, ?, ?, ?, ?)`
+	_, err := r.DB.Exec(query, log.EmployeeID, log.AccessPoint, log.Status, log.ConfidenceDistance, log.FailureReason)
+	if err != nil {
+		return fmt.Errorf("lỗi lưu log truy cập: %v", err)
+	}
+	return nil
+
+}
+func (r *MySQLEmployeeRepository) FindByEmployeeCode(code string) (*models.Employee, error) {
+	// Bổ sung otp_code và otp_expires_at vào câu SELECT
+	query := `SELECT id, employee_code, name, email, password_hash, is_first_login, status, otp_code, otp_expires_at FROM employees WHERE employee_code = ?`
+
+	var emp models.Employee
+	err := r.DB.QueryRow(query, code).Scan(
+		&emp.ID,
+		&emp.EmployeeCode,
+		&emp.Name,
+		&emp.Email,
+		&emp.PasswordHash,
+		&emp.IsFirstLogin,
+		&emp.Status,
+		&emp.OTPCode,
+		&emp.OTPExpiresAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+	return &emp, nil
+}
+func (r *MySQLEmployeeRepository) UpdatePasswordAndStatus(employeeID int, newHash string, isFirstLogin bool) error {
+	query := `UPDATE employees SET password_hash = ?, is_first_login = ?, otp_code = NULL, otp_expires_at = NULL WHERE id = ?`
+	_, err := r.DB.Exec(query, newHash, isFirstLogin, employeeID)
+	return err
+}
+
+func (r *MySQLEmployeeRepository) UpdateOTP(employeeID int, otpCode string, expiresAt time.Time) error {
+	query := `UPDATE employees SET otp_code = ?, otp_expires_at = ? WHERE id = ?`
+	_, err := r.DB.Exec(query, otpCode, expiresAt, employeeID)
+	return err
+}
+
+func (r *MySQLEmployeeRepository) DeleteRefreshToken(employeeID int) error {
+	query := `delete from refresh_tokens where employee_id = ?`
+	_, err := r.DB.Exec(query, employeeID)
+	return err
+}
+
+
+================================================================================
+File: ./handlers/attendance_handler.go
+================================================================================
+
+package handlers
+
+import (
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/service"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+type AttendanceHandler struct {
+	AttendanceService *service.AttendanceService
+}
+
+func NewAttendanceHandler(as *service.AttendanceService) *AttendanceHandler {
+	return &AttendanceHandler{AttendanceService: as}
+}
+
+// API: POST /api/attendance/identify (Dành cho Web 1:N)
+func (h *AttendanceHandler) Identify(c *gin.Context) {
+	var req dto.VerifyAttendanceRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "Dữ liệu không hợp lệ: " + err.Error(),
+		})
+		return
+	}
+
+	// Gọi luồng 1:N
+	emp, dist, aiResp, err := h.AttendanceService.IdentifyFace(req.Images)
+
+	// TRƯỜNG HỢP 1: NẾU BỊ LỖI (AI chê fake, không thấy mặt, hoặc không khớp ai trong DB)
+	if err != nil {
+		// Gọi qua Service để lưu log âm thầm
+		_ = h.AttendanceService.LogAccessEvent(nil, "Cổng chính", "DENIED", dist, err.Error())
+
+		res := dto.VerifyAttendanceResponse{
+			Status:  "failed",
+			Message: err.Error(),
+		}
+		// Đính kèm Stats của AI (nếu có) để Frontend hiện lý do rớt
+		if aiResp != nil {
+			res.Stats = aiResp.Stats
+		}
+		c.JSON(http.StatusUnprocessableEntity, res)
+		return
+	}
+
+	// TRƯỜNG HỢP 2: NẾU NHẬN DIỆN THÀNH CÔNG
+
+	// Gọi qua Service để lưu log âm thầm
+	_ = h.AttendanceService.LogAccessEvent(&emp.ID, "Cổng chính", "GRANTED", dist, "")
+
+	// Trả kết quả thành công về Frontend
+	c.JSON(http.StatusOK, dto.VerifyAttendanceResponse{
+		Status:       "success",
+		Message:      "Nhận diện thành công!",
+		EmployeeName: emp.Name,
+		EmployeeCode: emp.EmployeeCode,
+		Distance:     dist,
+		Stats:        aiResp.Stats,
+	})
+}
+
+
+================================================================================
+File: ./handlers/employee_handler.go
+================================================================================
+
+package handlers
+
+import (
+	"net/http"
+
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/service"
+
+	"github.com/gin-gonic/gin"
+)
+
+type EmployeeHandler struct {
+	RegisterService *service.RegisterService
+	EmployeeService *service.EmployeeService // Bổ sung thêm Service này
+}
+
+func NewEmployeeHandler(rs *service.RegisterService, es *service.EmployeeService) *EmployeeHandler {
+	return &EmployeeHandler{
+		RegisterService: rs,
+		EmployeeService: es,
+	}
+}
+
+// API: POST /api/employees/register
+func (h *EmployeeHandler) Register(c *gin.Context) {
+	var req dto.RegisterEmployeeRequest
+
+	// 1. Map body JSON vào DTO (Gin sẽ tự báo lỗi nếu thiếu trường require)
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "Dữ liệu không hợp lệ: " + err.Error(),
+		})
+		return
+	}
+
+	// 2. Gọi Service xử lý toàn bộ logic (AI + DB)
+	res, err := h.RegisterService.RegisterEmployee(req)
+
+	// Lỗi hệ thống (DB chết, AI sập mạng...)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "error",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	// Lỗi do AI đánh rớt (Ảnh fake, sai khuôn mặt...) -> HTTP 422 Unprocessable Entity
+	if res.Status == "failed" {
+		c.JSON(http.StatusUnprocessableEntity, res)
+		return
+	}
+
+	// 3. Đăng ký thành công mỹ mãn -> HTTP 200 OK
+	c.JSON(http.StatusOK, res)
+}
+
+func (h *EmployeeHandler) GetMyProfile(c *gin.Context) {
+	empIDVal, exists := c.Get("employee_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "failed", "message": "Không xác định được danh tính"})
+		return
+	}
+
+	empID := empIDVal.(int)
+
+	profile, err := h.EmployeeService.GetProfileByID(empID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Lấy thông tin cá nhân thành công",
+		"data":    profile,
+	})
+}
+
+
+================================================================================
+File: ./handlers/auth_handler.go
+================================================================================
+
+// handlers/auth_handler.go
+package handlers
+
+import (
+	"net/http"
+
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/service"
+
+	"github.com/gin-gonic/gin"
+)
+
+type AuthHandler struct {
+	AuthService *service.AuthService
+}
+
+func NewAuthHandler(as *service.AuthService) *AuthHandler {
+	return &AuthHandler{AuthService: as}
+}
+
+func (h *AuthHandler) Login(c *gin.Context) {
+	var req dto.LoginRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "Dữ liệu không hợp lệ: vui lòng nhập mã nhân viên và mật khẩu",
+		})
+		return
+	}
+
+	res, err := h.AuthService.Login(req)
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   res,
+	})
+}
+
+func (h *AuthHandler) RequestFirstLoginOTP(c *gin.Context) {
+	var req dto.RequestOTPRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "Vui lòng cung cấp mã nhân viên"})
+		return
+	}
+
+	if err := h.AuthService.RequestFirstLoginOTP(req.EmployeeCode); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Mã xác thực đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư.",
+	})
+}
+
+func (h *AuthHandler) VerifyOTPAndChangePassword(c *gin.Context) {
+	var req dto.VerifyOTPAndChangePasswordRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "Dữ liệu không hợp lệ (mật khẩu mới phải từ 6 ký tự)"})
+		return
+	}
+
+	if err := h.AuthService.VerifyOTPAndChangePassword(req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Đổi mật khẩu thành công! Tài khoản đã được kích hoạt.",
+	})
+}
+
+func (h *AuthHandler) RefreshToken(c *gin.Context) {
+	var req dto.RefreshTokenRequest
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "Vui lòng cung cấp refresh_token",
+		})
+		return
+	}
+
+	res, err := h.AuthService.RefreshToken(req)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   res,
+	})
+}
+
+func (h *AuthHandler) LogOut(c *gin.Context) {
+	empIDVal, exists := c.Get("employee_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "failed", "message": "Không xác định được danh tính"})
+		return
+	}
+
+	empID := empIDVal.(int)
+
+	err := h.AuthService.Logout(empID)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Đăng xuất thành công",
+	})
+}
+
+
+================================================================================
+File: ./infrastructure/ai/ai_interface.go
+================================================================================
+
+package ai
+
+type AIRegisterResponse struct {
+	Status    string    `json:"status"`
+	Embedding []float64 `json:"embedding"`
+	Error     string    `json:"error"`
+	Stats     struct {
+		TotalReceived int      `json:"total_received"`
+		ValidFaces    int      `json:"valid_faces"`
+		LivenessPass  int      `json:"liveness_pass"`
+		DeepfakePass  int      `json:"deepfake_pass"`
+		Errors        []string `json:"errors"`
+	} `json:"stats"`
+}
+
+type AIVerifyResponse struct {
+	Status    string    `json:"status"`
+	Embedding []float64 `json:"embedding"`
+	Error     string    `json:"error"`
+	Stats     struct {
+		TotalReceived int      `json:"total_received"`
+		ValidFaces    int      `json:"valid_faces"`
+		LivenessPass  int      `json:"liveness_pass"`
+		DeepfakePass  int      `json:"deepfake_pass"`
+		Errors        []string `json:"errors"`
+	} `json:"stats"`
+}
+
+type AIClient interface {
+	RegisterFace(images [][]byte) (*AIRegisterResponse, error)
+	VerifyFace(image [][]byte) (*AIVerifyResponse, error)
+}
+
+
+================================================================================
+File: ./infrastructure/ai/ai_client.go
+================================================================================
+
+package ai
+
+import (
+	"bytes"
+	"encoding/base64"
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"time"
+)
+
+type HTTPClient struct {
+	BaseURL   string
+	client    *http.Client
+	semaphore chan struct{}
+}
+
+func NewAIClient(baseURL string, maxConcurrent int) AIClient {
+	return &HTTPClient{
+		BaseURL: baseURL,
+		client: &http.Client{
+			Timeout: 30 * time.Second,
+		},
+		semaphore: make(chan struct{}, maxConcurrent),
+	}
+}
+
+func encodeBase64(data []byte) string {
+	return base64.StdEncoding.EncodeToString(data)
+}
+
+type aiRequest struct {
+	Images []string `json:"images"`
+}
+
+func (c *HTTPClient) RegisterFace(images [][]byte) (*AIRegisterResponse, error) {
+
+	c.semaphore <- struct{}{}
+
+	defer func() { <-c.semaphore }()
+
+	var base64Images []string
+	for _, img := range images {
+		base64Images = append(base64Images, encodeBase64(img))
+	}
+
+	reqBody := aiRequest{Images: base64Images}
+	jsonData, err := json.Marshal(reqBody)
+	if err != nil {
+		return nil, fmt.Errorf("lỗi marshal JSON: %v", err)
+	}
+
+	apiURL := c.BaseURL + "/api/register-face"
+
+	resp, err := c.client.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return nil, fmt.Errorf("không thể kết nối tới AI Service: %v", err)
+	}
+	defer resp.Body.Close()
+
+	var result AIRegisterResponse
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, fmt.Errorf("lỗi parse kết quả từ AI: %v", err)
+	}
+
+	return &result, nil
+}
+
+type aiVerifyRequest struct {
+	Images []string `json:"images"`
+}
+
+func (c *HTTPClient) VerifyFace(images [][]byte) (*AIVerifyResponse, error) {
+	c.semaphore <- struct{}{}
+	defer func() { <-c.semaphore }()
+	var base64Images []string
+	for _, img := range images {
+		base64Images = append(base64Images, encodeBase64(img))
+	}
+
+	reqBody := aiVerifyRequest{Images: base64Images}
+	jsonData, err := json.Marshal(reqBody)
+
+	// 3. Gọi API Python (Endpoint: /api/verify-face)
+	apiURL := c.BaseURL + "/api/verify-face"
+	resp, err := c.client.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return nil, fmt.Errorf("không thể kết nối tới AI Service: %v", err)
+	}
+	defer resp.Body.Close()
+
+	// 4. Đọc kết quả
+	var result AIVerifyResponse
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return nil, fmt.Errorf("lỗi parse kết quả từ AI: %v", err)
+	}
+
+	return &result, nil
+}
+
+
+================================================================================
+File: ./infrastructure/ai/ai_client_test.go
+================================================================================
+
+// ai_client_test.go
+package ai
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+)
+
+func TestAIClient_ConcurrencyLimit(t *testing.T) {
+	maxConcurrent := 2 // Giới hạn 2 luồng
+	totalRequests := 5 // Tổng cộng 5 người gửi
+	var activeRequests int32
+
+	mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		currentActive := atomic.AddInt32(&activeRequests, 1)
+
+		defer atomic.AddInt32(&activeRequests, -1)
+
+		if currentActive > int32(maxConcurrent) {
+			t.Errorf("LỖI BẢO MẬT: Có %d luồng lọt vào AI cùng lúc (Cho phép tối đa: %d)", currentActive, maxConcurrent)
+		}
+
+		time.Sleep(1 * time.Second) // Giả lập AI xử lý mất 1 giây
+
+		// Trả về JSON giả
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"status":"success"}`))
+	}))
+	defer mockServer.Close()
+
+	// 2. Khởi tạo AI Client trỏ vào Server Ảo
+	client := NewAIClient(mockServer.URL, maxConcurrent)
+	var wg sync.WaitGroup
+
+	start := time.Now()
+
+	// 3. Bắn cùng lúc 5 request
+	for i := 0; i < totalRequests; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			_, _ = client.VerifyFace([][]byte{[]byte("fake_image")})
+		}()
+	}
+
+	wg.Wait() // Chờ cả 5 thằng chạy xong
+	duration := time.Since(start)
+
+	// Phân tích: Có 5 request, làm 2 cái một lượt (mất 1s) -> Cần 3 lượt (lượt 1: 2 req, lượt 2: 2 req, lượt 3: 1 req)
+	// Vậy tổng thời gian chắc chắn phải >= 3 giây. Nếu nó chạy xong trong 1 giây nghĩa là Semaphore bị hỏng!
+	if duration < 3*time.Second {
+		t.Errorf("LỖI: Semaphore không chặn request! Thời gian chạy quá nhanh: %v", duration)
+	} else {
+		t.Logf("THÀNH CÔNG: Semaphore hoạt động chuẩn. Thời gian xử lý 5 request: %v", duration)
+	}
+}
+
+
+================================================================================
+File: ./infrastructure/camera/camera.go
+================================================================================
+
+package camera
+
+
+================================================================================
+File: ./infrastructure/camera/camera_interface.go
+================================================================================
+
+package camera
+
+
+
+================================================================================
+File: ./config/config.go
+================================================================================
+
+package config
+
+import (
+	"fmt"
+	"github.com/joho/godotenv"
+	"os"
+)
+
+type DBConfig struct {
+	User string
+	Pass string
+	Host string
+	Port string
+	Name string
+	URL  string
+}
+type Config struct {
+	DB           DBConfig
+	JWTSecret    string
+	SMTPHost     string
+	SMTPPort     string
+	SMTPEmail    string
+	SMTPPassword string
+}
+
+func LoadConfig() (Config, error) {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println("Không tìm thấy file .env, dùng biến môi trường có sẵn")
+	}
+	var cfg Config
+	cfg.DB.User = os.Getenv("DB_USER")
+	cfg.DB.Pass = os.Getenv("DB_PASS")
+	cfg.DB.Host = os.Getenv("DB_HOST")
+	cfg.DB.Port = os.Getenv("DB_PORT")
+	cfg.DB.Name = os.Getenv("DB_NAME")
+	cfg.DB.URL = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
+		cfg.DB.User,
+		cfg.DB.Pass,
+		cfg.DB.Host,
+		cfg.DB.Port,
+		cfg.DB.Name,
+	)
+	cfg.SMTPHost = os.Getenv("SMTP_HOST")
+	cfg.SMTPPort = os.Getenv("SMTP_PORT")
+	cfg.SMTPEmail = os.Getenv("SMTP_EMAIL")
+	cfg.SMTPPassword = os.Getenv("SMTP_PASSWORD")
+	cfg.JWTSecret = os.Getenv("JWT_SECRET")
+
+	return cfg, nil
+}
+
+
+================================================================================
+File: ./database/schema.sql
+================================================================================
+
+-- database/schema.sql
+
+CREATE DATABASE IF NOT EXISTS AttendanceDB;
+USE AttendanceDB;
+
+-- 1. Bảng Chức vụ trước)
+CREATE TABLE positions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    salary_grade VARCHAR(50)
+);
+
+-- 2. Bảng Phòng ban 
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    manager_id INT NULL
+);
+
+-- 3. Bảng Nhân viên
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    phone VARCHAR(20),
+    department_id INT,
+    position_id INT,
+    hire_date DATE,
+    embedding JSON, -- Lưu vector khuôn mặt từ Python (128 chiều)
+    status VARCHAR(50) DEFAULT 'ACTIVE', -- ACTIVE, INACTIVE, SUSPENDED
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL,
+    FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE SET NULL
+);
+
+-- GÁN KHÓA NGOẠI CHO BẢNG DEPARTMENTS:
+ALTER TABLE departments 
+ADD CONSTRAINT fk_department_manager 
+FOREIGN KEY (manager_id) REFERENCES employees(id) ON DELETE SET NULL;
+
+-- 4. Bảng Nhật ký điểm danh 
+CREATE TABLE attendance_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    date DATE NOT NULL, 
+    check_in DATETIME NOT NULL,
+    check_out DATETIME NULL,
+    location VARCHAR(255),
+    method VARCHAR(50) DEFAULT 'FACE_RECOGNITION', -- FACE_RECOGNITION, MANUAL, PASSWORD
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);
+
+
+================================================================================
+File: ./database/db.go
+================================================================================
+
+package database
+
+import (
+	"database/sql"
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"log"
+)
+
+func Connect(dsn string) *sql.DB {
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		log.Fatal("Không thể kết nối database: %v", err)
+	}
+	if err := db.Ping(); err != nil {
+		log.Fatal("DB không phản hồi (Ping failed): %v", err)
+	}
+	fmt.Println("Đã kết nối thành công tới database (0.0)")
+	return db
+}
+
+
+================================================================================
+File: ./service/register_service.go
+================================================================================
+
+// service/register_service.go
+package service
+
+import (
+	"encoding/base64"
+	"fmt"
+	"strings"
+	"time"
+
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/infrastructure/ai"
+	"duckanh/backend-doan/models"
+	"duckanh/backend-doan/repository"
+	"duckanh/backend-doan/security"
+)
+
+type RegisterService struct {
+	Repo repository.EmployeeRepository
+	AI   ai.AIClient
+}
+
+// Hàm khởi tạo Service
+func NewRegisterService(repo repository.EmployeeRepository, aiClient ai.AIClient) *RegisterService {
+	return &RegisterService{
+		Repo: repo,
+		AI:   aiClient,
+	}
+}
+
+// Hàm xử lý logic Đăng ký nhân viên
+func (s *RegisterService) RegisterEmployee(req dto.RegisterEmployeeRequest) (*dto.RegisterEmployeeResponse, error) {
+	// 1. Chuyển đổi mảng ảnh base64 (từ DTO) thành [][]byte để gửi sang AI
+	var imageBytes [][]byte
+	for _, b64Str := range req.Images {
+		// Xử lý trường hợp chuỗi base64 có chứa prefix "data:image/jpeg;base64," (thường gặp nếu gửi từ Web)
+		cleanBase64 := b64Str
+		if idx := strings.Index(cleanBase64, ","); idx != -1 {
+			cleanBase64 = cleanBase64[idx+1:]
+		}
+
+		decoded, err := base64.StdEncoding.DecodeString(cleanBase64)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi giải mã ảnh base64: %v", err)
+		}
+		imageBytes = append(imageBytes, decoded)
+	}
+
+	// 2. Gọi sang AI Service để Check Liveness, Deepfake và trích xuất Embedding
+	aiResp, err := s.AI.RegisterFace(imageBytes)
+	if err != nil {
+		return nil, fmt.Errorf("lỗi kết nối AI: %v", err)
+	}
+
+	// 3. Kiểm tra quyết định từ AI (Voting Logic bên Python)
+	if aiResp.Status != "success" {
+		// Nếu AI chê (Ảnh fake, ảnh in, không đủ mặt,...)
+		// Trả về failed cùng với lý do, nhưng không ném ra error hệ thống (để HTTP vẫn trả về status code hợp lý)
+		return &dto.RegisterEmployeeResponse{
+			Status:  "failed",
+			Message: aiResp.Error,
+			Stats:   aiResp.Stats,
+		}, nil
+	}
+
+	// 4. Nếu AI duyệt Pass -> Lắp ráp dữ liệu thành models.Employee
+	now := time.Now()
+	defaultPassword := req.EmployeeCode + "@123A"
+	hashedPassword, err := security.HashPassword(defaultPassword)
+
+	if err != nil {
+		return nil, fmt.Errorf("lỗi mã hóa mật khẩu: %v", err)
+	}
+
+	newEmployee := models.Employee{
+		EmployeeCode: req.EmployeeCode,
+		Name:         req.Name,
+		Email:        req.Email,
+		Phone:        req.Phone,
+		DepartmentID: req.DepartmentID,
+		PositionID:   req.PositionID,
+		Embedding:    aiResp.Embedding, // Vector chuẩn 128 chiều đã được AI tính trung bình
+		PasswordHash: hashedPassword,   // Lưu chuỗi đã băm
+		IsFirstLogin: true,
+		Status:       "ACTIVE",
+		CreatedAt:    now,
+		UpdatedAt:    now,
+	}
+
+	// 5. Lưu xuống Database
+	err = s.Repo.Save(&newEmployee)
+	if err != nil {
+		return nil, fmt.Errorf("lỗi lưu database (có thể trùng mã NV/Email): %v", err)
+	}
+
+	// 6. Hoàn thành xuất sắc
+	return &dto.RegisterEmployeeResponse{
+		Status:  "success",
+		Message: "Đăng ký nhân viên thành công!",
+		Stats:   aiResp.Stats,
+	}, nil
+}
+
+
+================================================================================
+File: ./service/attendance_service.go
+================================================================================
+
+package service
+
+import (
+	"duckanh/backend-doan/infrastructure/ai"
+	"duckanh/backend-doan/models"
+	"duckanh/backend-doan/repository"
+	"duckanh/backend-doan/utils"
+	"errors"
+	"fmt"
+	"math"
+)
+
+const FaceMatchThreshold = 0.45
+
+type AttendanceService struct {
+	EmpRepo repository.EmployeeRepository
+	AI      ai.AIClient
+}
+
+func NewAttendanceService(repo repository.EmployeeRepository, aiClient ai.AIClient) *AttendanceService {
+	return &AttendanceService{
+		EmpRepo: repo,
+		AI:      aiClient,
+	}
+}
+
+// ==========================================
+// 1:1 - CHECK-IN TỪ APP ANDROID (Có ID từ Token)
+// ==========================================
+func (s *AttendanceService) CheckIn(employeeID int, imagesBase64 []string) (*models.Employee, float64, *ai.AIVerifyResponse, error) {
+	emp, err := s.EmpRepo.FindByID(employeeID)
+	if err != nil {
+		return nil, 0, nil, err
+	}
+
+	imgBytes, err := utils.DecodeBase64Images(imagesBase64)
+	if err != nil {
+		return nil, 0, nil, err
+	}
+
+	aiResp, err := s.AI.VerifyFace(imgBytes)
+	if err != nil {
+		return nil, 0, nil, err
+	}
+	if aiResp.Status != "success" {
+		return nil, 0, aiResp, fmt.Errorf("AI từ chối: %s", aiResp.Error)
+	}
+
+	// SỬ DỤNG UTILS.EUCLIDEANDISTANCE
+	dist := utils.EuclideanDistance(emp.Embedding, aiResp.Embedding)
+	if dist == math.MaxFloat64 {
+		return nil, 0, aiResp, errors.New("kích thước vector (embedding) không hợp lệ")
+	}
+
+	if dist > FaceMatchThreshold {
+		return nil, dist, aiResp, fmt.Errorf("khuôn mặt không khớp (sai số: %.2f)", dist)
+	}
+
+	return emp, dist, aiResp, nil
+}
+
+// ==========================================
+// 1:N - IDENTIFY TỪ WEB QUẢN TRỊ (Không có ID)
+// ==========================================
+func (s *AttendanceService) IdentifyFace(imagesBase64 []string) (*models.Employee, float64, *ai.AIVerifyResponse, error) {
+	imgBytes, err := utils.DecodeBase64Images(imagesBase64)
+	if err != nil {
+		return nil, 0, nil, err
+	}
+
+	aiResp, err := s.AI.VerifyFace(imgBytes)
+	if err != nil {
+		return nil, 0, nil, err
+	}
+	if aiResp.Status != "success" {
+		return nil, 0, aiResp, fmt.Errorf("AI từ chối: %s", aiResp.Error)
+	}
+
+	employees, err := s.EmpRepo.GetAll()
+	if err != nil {
+		return nil, 0, aiResp, fmt.Errorf("lỗi lấy danh sách NV: %v", err)
+	}
+
+	var bestMatch *models.Employee
+	minDist := math.MaxFloat64
+
+	for i := range employees {
+		// SỬ DỤNG UTILS.EUCLIDEANDISTANCE
+		dist := utils.EuclideanDistance(employees[i].Embedding, aiResp.Embedding)
+
+		// Bỏ qua nếu lỗi chiều dài vector, ngược lại kiểm tra xem có phải khoảng cách nhỏ nhất không
+		if dist != math.MaxFloat64 && dist < minDist {
+			minDist = dist
+			bestMatch = &employees[i]
+		}
+	}
+
+	if bestMatch == nil || minDist > FaceMatchThreshold {
+		return nil, minDist, aiResp, errors.New("không nhận diện được khuôn mặt này trong hệ thống")
+	}
+
+	return bestMatch, minDist, aiResp, nil
+}
+
+func (s *AttendanceService) LogAccessEvent(employeeID *int, accessPoint string, status string, distance float64, failureReason string) error {
+	accessLog := models.AccessLog{
+		EmployeeID:         employeeID,
+		AccessPoint:        accessPoint,
+		Status:             status,
+		ConfidenceDistance: distance,
+		FailureReason:      failureReason,
+	}
+
+	return s.EmpRepo.LogAccess(accessLog)
+}
+
+
+================================================================================
+File: ./service/employee_service.go
+================================================================================
+
+package service
+
+import (
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/repository"
+	"time"
+)
+
+type EmployeeService struct {
+	EmpRepo repository.EmployeeRepository
+}
+
+func NewEmployeeService(empRepo repository.EmployeeRepository) *EmployeeService {
+	return &EmployeeService{
+		EmpRepo: empRepo,
+	}
+}
+
+func (s *EmployeeService) GetProfileByID(id int) (*dto.ProfileResponse, error) {
+	emp, err := s.EmpRepo.FindByID(id)
+	if err != nil {
+		return nil, err
+	}
+
+	// Xử lý an toàn các trường con trỏ (Tránh lỗi nil pointer dereference)
+	email := ""
+	if emp.Email != nil {
+		email = *emp.Email
+	}
+
+	phone := ""
+	if emp.Phone != nil {
+		phone = *emp.Phone
+	}
+
+	deptID := 0
+	if emp.DepartmentID != nil {
+		deptID = *emp.DepartmentID
+	}
+
+	posID := 0
+	if emp.PositionID != nil {
+		posID = *emp.PositionID
+	}
+
+	hireDateStr := ""
+	if emp.HireDate != nil {
+		hireDateStr = emp.HireDate.Format("2006-01-02")
+	}
+
+	hireDate, err := time.Parse("2006-01-02", hireDateStr)
+	return &dto.ProfileResponse{
+		ID:           emp.ID,
+		EmployeeCode: emp.EmployeeCode,
+		Name:         emp.Name,
+		Email:        email,
+		Phone:        phone,
+		DepartmentID: deptID,
+		PositionID:   posID,
+		HireDate:     &hireDate,
+		Status:       emp.Status,
+	}, nil
+}
+
+
+================================================================================
+File: ./service/auth_service.go
+================================================================================
+
+package service
+
+import (
+	"duckanh/backend-doan/utils"
+	"errors"
+	"fmt"
+	"time"
+
+	"duckanh/backend-doan/dto"
+	"duckanh/backend-doan/models"
+	"duckanh/backend-doan/repository"
+	"duckanh/backend-doan/security" // Dùng package security cậu vừa tách ra
+)
+
+type AuthService struct {
+	EmpRepo      repository.EmployeeRepository
+	TokenRepo    repository.RefreshTokenRepository
+	JWTSecret    string
+	SMTPHost     string
+	SMTPPort     string
+	SMTPEmail    string
+	SMTPPassword string
+}
+
+func NewAuthService(
+	empRepo repository.EmployeeRepository,
+	tokenRepo repository.RefreshTokenRepository,
+	secret string,
+	smtpHost, smtpPort, smtpEmail, smtpPass string,
+) *AuthService {
+	return &AuthService{
+		EmpRepo:      empRepo,
+		TokenRepo:    tokenRepo,
+		JWTSecret:    secret,
+		SMTPHost:     smtpHost,
+		SMTPPort:     smtpPort,
+		SMTPEmail:    smtpEmail,
+		SMTPPassword: smtpPass,
+	}
+}
+
+func (s *AuthService) Login(req dto.LoginRequest) (*dto.LoginResponse, error) {
+	emp, err := s.EmpRepo.FindByEmployeeCode(req.EmployeeCode)
+	if err != nil {
+		return nil, errors.New("sai mã nhân viên hoặc mật khẩu")
+	}
+
+	if emp.Status != "ACTIVE" {
+		return nil, errors.New("tài khoản của bạn đã bị khóa")
+	}
+
+	if !security.CheckPasswordHash(req.Password, emp.PasswordHash) {
+		return nil, errors.New("sai mã nhân viên hoặc mật khẩu")
+	}
+	if emp.IsFirstLogin {
+		return &dto.LoginResponse{
+			AccessToken:  "", // TUYỆT ĐỐI KHÔNG CẤP
+			RefreshToken: "", // TUYỆT ĐỐI KHÔNG CẤP
+			IsFirstLogin: true,
+			Message:      "Yêu cầu đổi mật khẩu mặc định trước khi truy cập hệ thống",
+		}, nil
+	}
+
+	accessToken, err := security.GenerateAccessToken(emp.ID, s.JWTSecret)
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo access token")
+	}
+
+	refreshTokenStr, err := security.GenerateRefreshToken()
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo refresh token")
+	}
+
+	rt := models.RefreshToken{
+		EmployeeID: emp.ID,
+		Token:      refreshTokenStr,
+		ExpiresAt:  time.Now().Add(30 * 24 * time.Hour),
+	}
+
+	if err := s.TokenRepo.Save(&rt); err != nil {
+		return nil, errors.New("lỗi hệ thống khi lưu phiên đăng nhập")
+	}
+
+	return &dto.LoginResponse{
+		AccessToken:  accessToken,
+		RefreshToken: refreshTokenStr,
+		IsFirstLogin: false,
+		Message:      "Đăng nhập thành công",
+	}, nil
+}
+
+func (s *AuthService) RequestFirstLoginOTP(employeeCode string) error {
+	emp, err := s.EmpRepo.FindByEmployeeCode(employeeCode)
+	if err != nil {
+		return errors.New("tài khoản không tồn tại")
+	}
+
+	if !emp.IsFirstLogin {
+		return errors.New("tài khoản này đã được kích hoạt, không thể gửi lại OTP đổi mật khẩu lần đầu")
+	}
+
+	if *emp.Email == "" {
+		return errors.New("tài khoản chưa được liên kết email, vui lòng liên hệ Admin")
+	}
+
+	otpCode, err := security.Generate6DigitOTP()
+	if err != nil {
+		return errors.New("lỗi hệ thống khi sinh mã xác thực")
+	}
+
+	expiresAt := time.Now().Add(5 * time.Minute)
+	err = s.EmpRepo.UpdateOTP(emp.ID, otpCode, expiresAt)
+	if err != nil {
+		return errors.New("lỗi hệ thống khi lưu mã xác thực")
+	}
+
+	go func() {
+		errMail := utils.SendOTPEmail(
+			*emp.Email, emp.Name, otpCode,
+			s.SMTPHost, s.SMTPPort, s.SMTPEmail, s.SMTPPassword,
+		)
+		if errMail != nil {
+			fmt.Printf(" Lỗi gửi email OTP cho %s: %v\n", emp.Email, errMail)
+		} else {
+			fmt.Printf(" Đã gửi email OTP thành công cho %s\n", emp.Email)
+		}
+	}()
+
+	return nil
+}
+
+func (s *AuthService) VerifyOTPAndChangePassword(req dto.VerifyOTPAndChangePasswordRequest) error {
+	emp, err := s.EmpRepo.FindByEmployeeCode(req.EmployeeCode)
+	if err != nil {
+		return errors.New("tài khoản không tồn tại")
+	}
+
+	if !emp.IsFirstLogin {
+		return errors.New("tài khoản này đã được kích hoạt, không thể đổi mật khẩu theo luồng này")
+	}
+
+	// 3. KIỂM TRA OTP
+	if emp.OTPCode == nil || *emp.OTPCode != req.OTPCode {
+		return errors.New("mã xác thực (OTP) không chính xác")
+	}
+
+	if emp.OTPExpiresAt == nil || emp.OTPExpiresAt.Before(time.Now()) {
+		return errors.New("mã xác thực đã hết hạn, vui lòng yêu cầu gửi lại mã mới")
+	}
+
+	if security.CheckPasswordHash(req.NewPassword, emp.PasswordHash) {
+		return errors.New("mật khẩu mới không được giống với mật khẩu mặc định")
+	}
+
+	newHash, err := security.HashPassword(req.NewPassword)
+	if err != nil {
+		return errors.New("lỗi mã hóa mật khẩu hệ thống")
+	}
+
+	err = s.EmpRepo.UpdatePasswordAndStatus(emp.ID, newHash, false)
+	if err != nil {
+		return errors.New("lỗi khi cập nhật mật khẩu xuống cơ sở dữ liệu")
+	}
+
+	return nil
+}
+
+func (s *AuthService) RefreshToken(req dto.RefreshTokenRequest) (*dto.RefreshTokenResponse, error) {
+	rt, err := s.TokenRepo.FindByToken(req.RefreshToken)
+	if err != nil {
+		return nil, errors.New("refresh token không hợp lệ hoặc đã bị thu hồi")
+	}
+
+	if rt.ExpiresAt.Before(time.Now()) {
+		_ = s.TokenRepo.DeleteByToken(rt.Token)
+		return nil, errors.New("phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại")
+	}
+
+	newAccessToken, err := security.GenerateAccessToken(rt.EmployeeID, s.JWTSecret)
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo access token mới")
+	}
+
+	newRefreshTokenStr, err := security.GenerateRefreshToken()
+	if err != nil {
+		return nil, errors.New("lỗi hệ thống khi tạo refresh token mới")
+	}
+
+	newRT := models.RefreshToken{
+		EmployeeID: rt.EmployeeID,
+		Token:      newRefreshTokenStr,
+		ExpiresAt:  time.Now().Add(30 * 24 * time.Hour),
+	}
+	if err := s.TokenRepo.Save(&newRT); err != nil {
+		return nil, errors.New("lỗi hệ thống khi lưu phiên đăng nhập mới")
+	}
+
+	_ = s.TokenRepo.DeleteByToken(rt.Token)
+
+	return &dto.RefreshTokenResponse{
+		AccessToken:  newAccessToken,
+		RefreshToken: newRefreshTokenStr,
+	}, nil
+}
+func (s *AuthService) Logout(employeeID int) error {
+	err := s.EmpRepo.DeleteRefreshToken(employeeID)
+	return err
+}
+
+
+================================================================================
+File: ./dto/employee_dto.go
+================================================================================
+
+package dto
+
+import (
+	"time"
+)
+
+type RegisterEmployeeRequest struct {
+	EmployeeCode string   `json:"employee_code" binding:"required"`
+	Name         string   `json:"name" binding:"required"`
+	Email        *string  `json:"email"`
+	Phone        *string  `json:"phone"`
+	DepartmentID *int     `json:"department_id"`
+	PositionID   *int     `json:"position_id"`
+	Images       []string `json:"images" binding:"required"` // Danh sách 5 ảnh Base64
+}
+
+type RegisterEmployeeResponse struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	// Có thể thêm các thống kê từ AI vào đây để hiển thị lên App nếu muốn
+	Stats interface{} `json:"stats,omitempty"`
+}
+
+type VerifyAttendanceRequest struct {
+	Images []string `json:"images" binding:"required"` // Chuyển thành mảng
+}
+
+type VerifyAttendanceResponse struct {
+	Status       string      `json:"status"`
+	Message      string      `json:"message"`
+	EmployeeName string      `json:"employee_name,omitempty"`
+	EmployeeCode string      `json:"employee_code,omitempty"`
+	Distance     float64     `json:"distance,omitempty"`
+	Stats        interface{} `json:"stats,omitempty"` // Trả nguyên cục Stats về cho App/Web hiển thị
+}
+
+type ProfileResponse struct {
+	ID           int        `json:"id"`
+	EmployeeCode string     `json:"employee_code"`
+	Name         string     `json:"name"`
+	Email        string     `json:"email"`
+	Phone        string     `json:"phone"`
+	DepartmentID int        `json:"department_id"`
+	PositionID   int        `json:"position_id"`
+	HireDate     *time.Time `json:"hire_date"`
+	Status       string     `json:"status"`
+}
+
+
+================================================================================
+File: ./dto/auth_dto.go
+================================================================================
+
+package dto
+
+type LoginRequest struct {
+	EmployeeCode string `json:"employee_code" binding:"required"`
+	Password     string `json:"password" binding:"required"`
+}
+
+type LoginResponse struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	IsFirstLogin bool   `json:"is_first_login"`
+	Message      string `json:"message"`
+}
+
+type ChangeFirstPasswordRequest struct {
+	EmployeeCode string `json:"employee_code" binding:"required"`
+	OldPassword  string `json:"old_password" binding:"required"`
+	NewPassword  string `json:"new_password" binding:"required,min=6"` // Bắt buộc pass mới từ 6 ký tự
+}
+
+type RequestOTPRequest struct {
+	EmployeeCode string `json:"employee_code" binding:"required"`
+}
+
+type VerifyOTPAndChangePasswordRequest struct {
+	EmployeeCode string `json:"employee_code" binding:"required"`
+	OTPCode      string `json:"otp_code" binding:"required"`
+	NewPassword  string `json:"new_password" binding:"required,min=6"`
+}
+
+type RefreshTokenRequest struct {
+	RefreshToken string `json:"refresh_token" binding:"required"`
+}
+
+type RefreshTokenResponse struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+
+
+================================================================================
+File: ./routes/routes.go
+================================================================================
+
+package routes
+
+import (
+	"duckanh/backend-doan/handlers"
+	"duckanh/backend-doan/middleware"
+	"github.com/gin-gonic/gin"
+)
+
+// SetupRoutes thiết lập toàn bộ các API endpoint cho hệ thống
+func SetupRoutes(
+	r *gin.Engine,
+	empHandler *handlers.EmployeeHandler,
+	attHandler *handlers.AttendanceHandler,
+	authHandler *handlers.AuthHandler,
+	jwtSecret string,
+) {
+	api := r.Group("/api")
+
+	// ==========================================
+	// 1. NHÓM AUTH (Xác thực & Cấp quyền) - KHÔNG CẦN TOKEN
+	// ==========================================
+	auth := api.Group("/auth")
+	{
+		auth.POST("/register", empHandler.Register) // Chuyển Register về đúng "nhà" của nó
+		auth.POST("/login", authHandler.Login)
+		auth.POST("/request-otp", authHandler.RequestFirstLoginOTP)
+		auth.POST("/verify-otp-change-password", authHandler.VerifyOTPAndChangePassword)
+		auth.POST("/refresh-token", authHandler.RefreshToken)
+		auth.DELETE("/logout",
+			middleware.RequireAuth(jwtSecret),
+			authHandler.LogOut,
+		)
+
+	}
+
+	// ==========================================
+	// 2. NHÓM EMPLOYEES (Quản lý nhân viên) - BẮT BUỘC CÓ TOKEN
+	// ==========================================
+	employees := api.Group("/employees")
+	employees.Use(middleware.RequireAuth(jwtSecret)) // Bọc khiên bảo vệ cho TOÀN BỘ group này
+	{
+		// Đường dẫn thực tế: GET /api/employees/me
+		employees.GET("/me", empHandler.GetMyProfile)
+
+		// Sau này cậu viết thêm các API như:
+		// employees.PUT("/:id", empHandler.UpdateEmployee)
+		// employees.DELETE("/:id", empHandler.DeleteEmployee)
+		// ... tất cả sẽ tự động được bảo vệ!
+	}
+
+	// ==========================================
+	// 3. NHÓM ATTENDANCE (Điểm danh) - HỖN HỢP
+	// ==========================================
+	attendance := api.Group("/attendance")
+	{
+		// [Public] API Điểm danh qua Camera chung để ở sảnh (Không cần Token)
+		attendance.POST("/identify", attHandler.Identify)
+
+		// 💡 [Protected] API Điểm danh cá nhân trên Mobile App (Cần Token)
+		// Kẹp middleware trực tiếp vào từng route cụ thể trong group hỗn hợp này:
+		// attendance.POST("/mobile-check-in", middleware.RequireAuth(jwtSecret), attHandler.MobileCheckIn)
+	}
+}
+
+
+================================================================================
+File: ./security/password.go
+================================================================================
+
+package security
+
+import "golang.org/x/crypto/bcrypt"
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 10)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}
+
+
+================================================================================
+File: ./security/token.go
+================================================================================
+
+package security
+
+import (
+	"crypto/rand"
+	"encoding/hex"
+	"fmt"
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+)
+
+// 1. SINH ACCESS TOKEN
+func GenerateAccessToken(employeeID int, secretKey string) (string, error) {
+	claims := jwt.MapClaims{
+		"employee_id": employeeID,
+		"exp":         time.Now().Add(15 * time.Minute).Unix(),
+		"iat":         time.Now().Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	return token.SignedString([]byte(secretKey))
+}
+
+// 2. SINH REFRESH TOKEN
+func GenerateRefreshToken() (string, error) {
+	bytes := make([]byte, 32)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", fmt.Errorf("lỗi sinh chuỗi ngẫu nhiên: %v", err)
+	}
+
+	return hex.EncodeToString(bytes), nil
+}
+
+
+================================================================================
+File: ./security/otp.go
+================================================================================
+
+package security
+
+import (
+	"crypto/rand"
+	"fmt"
+	"math/big"
+)
+
+func Generate6DigitOTP() (string, error) {
+	max := big.NewInt(1000000)
+	n, err := rand.Int(rand.Reader, max)
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%06d", n.Int64()), nil
+}
+
+
+================================================================================
+File: ./middleware/jwt_auth.go
+================================================================================
+
+package middleware
+
+import (
+	"fmt"
+	"net/http"
+	"strings"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
+)
+
+func RequireAuth(secretKey string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		authHeader := c.GetHeader("Authorization")
+		if authHeader == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"status":  "failed",
+				"message": "Không tìm thấy token xác thực (Missing Authorization header)",
+			})
+			c.Abort()
+			return
+		}
+
+		parts := strings.Split(authHeader, " ")
+		if len(parts) != 2 || parts[0] != "Bearer" {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"status":  "failed",
+				"message": "Định dạng token không hợp lệ (Phải là 'Bearer <token>')",
+			})
+			c.Abort()
+			return
+		}
+		tokenString := parts[1]
+
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("thuật toán mã hóa không hợp lệ")
+			}
+			return []byte(secretKey), nil
+		})
+
+		if err != nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"status":  "failed",
+				"message": "Token không hợp lệ hoặc đã hết hạn",
+			})
+			c.Abort()
+			return
+		}
+
+		if claims, ok := token.Claims.(jwt.MapClaims); ok {
+			if empID, ok := claims["employee_id"].(float64); ok {
+				c.Set("employee_id", int(empID))
+			}
+		}
+
+		c.Next()
+	}
+}

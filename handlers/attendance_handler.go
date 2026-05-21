@@ -3,6 +3,7 @@ package handlers
 import (
 	"duckanh/backend-doan/dto"
 	"duckanh/backend-doan/service"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -56,6 +57,56 @@ func (h *AttendanceHandler) Identify(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.VerifyAttendanceResponse{
 		Status:       "success",
 		Message:      "Nhận diện thành công!",
+		EmployeeName: emp.Name,
+		EmployeeCode: emp.EmployeeCode,
+		Distance:     dist,
+		Stats:        aiResp.Stats,
+	})
+}
+
+func (h *AttendanceHandler) MobileCheckIn(c *gin.Context) {
+	// Trích xuất ID từ JWT Token
+	empIDVal, exists := c.Get("employee_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "failed", "message": "Không xác định được danh tính"})
+		return
+	}
+	employeeID := empIDVal.(int)
+
+	var req dto.MobileCheckInRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "Dữ liệu gửi lên không hợp lệ"})
+		return
+	}
+	// ==========================================
+	// 🐛 ĐOẠN CODE IN DEBUG Ở ĐÂY
+	// ==========================================
+	fmt.Printf("\n=== [DEBUG] MOBILE CHECK-IN REQUEST ===\n")
+	fmt.Printf(" - Employee ID : %d\n", employeeID)
+	fmt.Printf(" - BSSID Wi-Fi : %s\n", req.BSSID)
+	fmt.Printf(" - Tọa độ GPS  : %f, %f\n", req.Latitude, req.Longitude)
+	fmt.Printf(" - Số lượng ảnh: %d\n", len(req.Images))
+	fmt.Printf("=======================================\n\n")
+	// ==========================================
+
+	// Đẩy vào Service xử lý
+	emp, dist, aiResp, err := h.AttendanceService.MobileCheckIn(employeeID, req)
+	if err != nil {
+		res := dto.VerifyAttendanceResponse{
+			Status:  "failed",
+			Message: err.Error(),
+		}
+		if aiResp != nil {
+			res.Stats = aiResp.Stats
+		}
+		c.JSON(http.StatusUnprocessableEntity, res)
+		return
+	}
+
+	// Trả về thành công
+	c.JSON(http.StatusOK, dto.VerifyAttendanceResponse{
+		Status:       "success",
+		Message:      "Điểm danh Mobile thành công!",
 		EmployeeName: emp.Name,
 		EmployeeCode: emp.EmployeeCode,
 		Distance:     dist,

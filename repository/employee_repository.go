@@ -26,10 +26,10 @@ func (r *MySQLEmployeeRepository) Save(emp *models.Employee) error {
 	query := `
 		INSERT INTO employees (
 			employee_code, name, email, phone, department_id, position_id, 
-			hire_date, embedding, status, created_at, updated_at, 
+			hire_date, embedding, status, role, created_at, updated_at, 
 			password_hash, is_first_login
 		)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 	`
 	now := time.Now()
 
@@ -37,7 +37,7 @@ func (r *MySQLEmployeeRepository) Save(emp *models.Employee) error {
 	if emp.Status != "" {
 		status = emp.Status
 	}
-
+	role := "user"
 	_, err = r.DB.Exec(query,
 		emp.EmployeeCode,
 		emp.Name,
@@ -48,6 +48,7 @@ func (r *MySQLEmployeeRepository) Save(emp *models.Employee) error {
 		emp.HireDate,
 		embeddingJSON,
 		status,
+		role,
 		now,
 		now,
 		emp.PasswordHash,
@@ -59,7 +60,7 @@ func (r *MySQLEmployeeRepository) Save(emp *models.Employee) error {
 func (r *MySQLEmployeeRepository) GetAll() ([]models.Employee, error) {
 	// Chỉ lấy những nhân viên đang ACTIVE (đang làm việc) để so khớp khuôn mặt
 	query := `
-		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, created_at, updated_at 
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, role, created_at, updated_at 
 		FROM employees 
 		WHERE status = 'ACTIVE'
 	`
@@ -84,6 +85,7 @@ func (r *MySQLEmployeeRepository) GetAll() ([]models.Employee, error) {
 			&emp.HireDate,
 			&embeddingJSON,
 			&emp.Status,
+			&emp.Role,
 			&emp.CreatedAt,
 			&emp.UpdatedAt,
 		)
@@ -157,7 +159,7 @@ func (r *MySQLEmployeeRepository) LogAccess(log models.AccessLog) error {
 }
 func (r *MySQLEmployeeRepository) FindByEmployeeCode(code string) (*models.Employee, error) {
 	// Bổ sung otp_code và otp_expires_at vào câu SELECT
-	query := `SELECT id, employee_code, name, email, password_hash, is_first_login, status, otp_code, otp_expires_at FROM employees WHERE employee_code = ?`
+	query := `SELECT id, employee_code, name, email, password_hash, is_first_login, status, role, otp_code, otp_expires_at FROM employees WHERE employee_code = ?`
 
 	var emp models.Employee
 	err := r.DB.QueryRow(query, code).Scan(
@@ -168,6 +170,7 @@ func (r *MySQLEmployeeRepository) FindByEmployeeCode(code string) (*models.Emplo
 		&emp.PasswordHash,
 		&emp.IsFirstLogin,
 		&emp.Status,
+		&emp.Role,
 		&emp.OTPCode,
 		&emp.OTPExpiresAt,
 	)
@@ -186,5 +189,11 @@ func (r *MySQLEmployeeRepository) UpdatePasswordAndStatus(employeeID int, newHas
 func (r *MySQLEmployeeRepository) UpdateOTP(employeeID int, otpCode string, expiresAt time.Time) error {
 	query := `UPDATE employees SET otp_code = ?, otp_expires_at = ? WHERE id = ?`
 	_, err := r.DB.Exec(query, otpCode, expiresAt, employeeID)
+	return err
+}
+
+func (r *MySQLEmployeeRepository) DeleteRefreshToken(employeeID int) error {
+	query := `delete from refresh_tokens where employee_id = ?`
+	_, err := r.DB.Exec(query, employeeID)
 	return err
 }

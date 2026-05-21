@@ -31,7 +31,7 @@ func (r *MySQLRefreshTokenRepository) Save(token *models.RefreshToken) error {
 
 func (r *MySQLRefreshTokenRepository) FindByToken(tokenString string) (*models.RefreshToken, error) {
 	query := `
-		SELECT id, employee_id, token, expires_at, created_at 
+		SELECT id, employee_id,  token, expires_at, created_at 
 		FROM refresh_tokens 
 		WHERE token = ?
 	`

@@ -9,11 +9,11 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// 1. SINH ACCESS TOKEN
-func GenerateAccessToken(employeeID int, secretKey string) (string, error) {
+func GenerateAccessToken(employeeID int, secretKey string, role string) (string, error) {
 	claims := jwt.MapClaims{
 		"employee_id": employeeID,
-		"exp":         time.Now().Add(15 * time.Minute).Unix(),
+		"role":        role,
+		"exp":         time.Now().Add(30 * time.Minute).Unix(),
 		"iat":         time.Now().Unix(),
 	}
 

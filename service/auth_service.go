@@ -61,7 +61,7 @@ func (s *AuthService) Login(req dto.LoginRequest) (*dto.LoginResponse, error) {
 		}, nil
 	}
 
-	accessToken, err := security.GenerateAccessToken(emp.ID, s.JWTSecret)
+	accessToken, err := security.GenerateAccessToken(emp.ID, s.JWTSecret, emp.Role)
 	if err != nil {
 		return nil, errors.New("lỗi hệ thống khi tạo access token")
 	}
@@ -89,36 +89,6 @@ func (s *AuthService) Login(req dto.LoginRequest) (*dto.LoginResponse, error) {
 	}, nil
 }
 
-//	func (s *AuthService) ChangeFirstPassword(req dto.ChangeFirstPasswordRequest) error {
-//		emp, err := s.EmpRepo.FindByEmployeeCode(req.EmployeeCode)
-//		if err != nil {
-//			return errors.New("tài khoản không tồn tại")
-//		}
-//
-//		if !emp.IsFirstLogin {
-//			return errors.New("tài khoản này đã qua lần đăng nhập đầu tiên, vui lòng dùng chức năng quên mật khẩu nếu cần")
-//		}
-//
-//		if !security.CheckPasswordHash(req.OldPassword, emp.PasswordHash) {
-//			return errors.New("mật khẩu cũ không chính xác")
-//		}
-//
-//		if security.CheckPasswordHash(req.NewPassword, emp.PasswordHash) {
-//			return errors.New("mật khẩu mới không được trùng với mật khẩu mặc định")
-//		}
-//
-//		newHash, err := security.HashPassword(req.NewPassword)
-//		if err != nil {
-//			return errors.New("lỗi mã hóa mật khẩu hệ thống")
-//		}
-//
-//		err = s.EmpRepo.UpdatePasswordAndStatus(emp.ID, newHash, false)
-//		if err != nil {
-//			return errors.New("lỗi khi cập nhật mật khẩu xuống cơ sở dữ liệu")
-//		}
-//
-//		return nil
-//	}
 func (s *AuthService) RequestFirstLoginOTP(employeeCode string) error {
 	emp, err := s.EmpRepo.FindByEmployeeCode(employeeCode)
 	if err != nil {
@@ -159,8 +129,6 @@ func (s *AuthService) RequestFirstLoginOTP(employeeCode string) error {
 	return nil
 }
 
-// service/auth_service.go
-
 func (s *AuthService) VerifyOTPAndChangePassword(req dto.VerifyOTPAndChangePasswordRequest) error {
 	emp, err := s.EmpRepo.FindByEmployeeCode(req.EmployeeCode)
 	if err != nil {
@@ -196,23 +164,37 @@ func (s *AuthService) VerifyOTPAndChangePassword(req dto.VerifyOTPAndChangePassw
 
 	return nil
 }
-
 func (s *AuthService) RefreshToken(req dto.RefreshTokenRequest) (*dto.RefreshTokenResponse, error) {
+	// 1. Kiểm tra Refresh Token
 	rt, err := s.TokenRepo.FindByToken(req.RefreshToken)
 	if err != nil {
 		return nil, errors.New("refresh token không hợp lệ hoặc đã bị thu hồi")
 	}
+	fmt.Println("refresh token: ", req.RefreshToken)
 
 	if rt.ExpiresAt.Before(time.Now()) {
 		_ = s.TokenRepo.DeleteByToken(rt.Token)
 		return nil, errors.New("phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại")
 	}
 
-	newAccessToken, err := security.GenerateAccessToken(rt.EmployeeID, s.JWTSecret)
+	// ==========================================
+	// 2. LẤY THÔNG TIN NHÂN VIÊN MỚI NHẤT
+	// (Vừa để lấy Role, vừa để chặn nếu tài khoản đã bị khóa/xóa)
+	// ==========================================
+	emp, err := s.EmpRepo.FindByID(rt.EmployeeID)
+	if err != nil {
+		// Nhớ xóa luôn token rác nếu nhân viên đã bị khóa
+		_ = s.TokenRepo.DeleteByToken(rt.Token)
+		return nil, errors.New("tài khoản không tồn tại hoặc đã bị khóa")
+	}
+
+	// 3. Sinh Access Token mới, truyền emp.Role vào
+	newAccessToken, err := security.GenerateAccessToken(rt.EmployeeID, s.JWTSecret, emp.Role)
 	if err != nil {
 		return nil, errors.New("lỗi hệ thống khi tạo access token mới")
 	}
 
+	// 4. Sinh Refresh Token mới (Xoay vòng)
 	newRefreshTokenStr, err := security.GenerateRefreshToken()
 	if err != nil {
 		return nil, errors.New("lỗi hệ thống khi tạo refresh token mới")
@@ -233,4 +215,9 @@ func (s *AuthService) RefreshToken(req dto.RefreshTokenRequest) (*dto.RefreshTok
 		AccessToken:  newAccessToken,
 		RefreshToken: newRefreshTokenStr,
 	}, nil
+}
+
+func (s *AuthService) Logout(employeeID int) error {
+	err := s.EmpRepo.DeleteRefreshToken(employeeID)
+	return err
 }

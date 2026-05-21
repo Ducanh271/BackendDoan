@@ -6,14 +6,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type HTTPClient struct {
-	BaseURL string
+	BaseURL   string
+	client    *http.Client
+	semaphore chan struct{}
 }
 
-func NewAIClient(baseURL string) AIClient {
-	return &HTTPClient{BaseURL: baseURL}
+func NewAIClient(baseURL string, maxConcurrent int) AIClient {
+	return &HTTPClient{
+		BaseURL: baseURL,
+		client: &http.Client{
+			Timeout: 30 * time.Second,
+		},
+		semaphore: make(chan struct{}, maxConcurrent),
+	}
 }
 
 func encodeBase64(data []byte) string {
@@ -25,6 +34,11 @@ type aiRequest struct {
 }
 
 func (c *HTTPClient) RegisterFace(images [][]byte) (*AIRegisterResponse, error) {
+
+	c.semaphore <- struct{}{}
+
+	defer func() { <-c.semaphore }()
+
 	var base64Images []string
 	for _, img := range images {
 		base64Images = append(base64Images, encodeBase64(img))
@@ -37,7 +51,8 @@ func (c *HTTPClient) RegisterFace(images [][]byte) (*AIRegisterResponse, error) 
 	}
 
 	apiURL := c.BaseURL + "/api/register-face"
-	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
+
+	resp, err := c.client.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		return nil, fmt.Errorf("không thể kết nối tới AI Service: %v", err)
 	}
@@ -56,6 +71,8 @@ type aiVerifyRequest struct {
 }
 
 func (c *HTTPClient) VerifyFace(images [][]byte) (*AIVerifyResponse, error) {
+	c.semaphore <- struct{}{}
+	defer func() { <-c.semaphore }()
 	var base64Images []string
 	for _, img := range images {
 		base64Images = append(base64Images, encodeBase64(img))
@@ -66,7 +83,7 @@ func (c *HTTPClient) VerifyFace(images [][]byte) (*AIVerifyResponse, error) {
 
 	// 3. Gọi API Python (Endpoint: /api/verify-face)
 	apiURL := c.BaseURL + "/api/verify-face"
-	resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
+	resp, err := c.client.Post(apiURL, "application/json", bytes.NewBuffer(jsonData))
 	if err != nil {
 		return nil, fmt.Errorf("không thể kết nối tới AI Service: %v", err)
 	}
