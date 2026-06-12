@@ -42,12 +42,18 @@ func main() {
 	empRepo := repository.NewMySQLEmployeeRepository(db)
 	tokenRepo := repository.NewMySQLRefreshTokenRepository(db)
 	configRepo := repository.NewMySQLCompanyConfigRepository(db)
+	attRepo := repository.NewMySQLAttendanceRepository(db)
 
-	regService := service.NewRegisterService(empRepo, aiClient)
-	attService := service.NewAttendanceService(empRepo, configRepo, aiClient)
+	regService := service.NewRegisterService(empRepo, aiClient, cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPEmail, cfg.SMTPPassword)
+	attService := service.NewAttendanceService(empRepo, configRepo, attRepo, aiClient)
 	authService := service.NewAuthService(empRepo, tokenRepo, cfg.JWTSecret, cfg.SMTPHost, cfg.SMTPPort, cfg.SMTPEmail, cfg.SMTPPassword)
 	empService := service.NewEmployeeService(empRepo)
 	configService := service.NewConfigService(configRepo)
+
+	// Tạo tài khoản admin mặc định nếu hệ thống chưa có admin nào
+	if err := empService.EnsureDefaultAdmin(); err != nil {
+		log.Println("Cảnh báo: không seed được tài khoản admin mặc định:", err)
+	}
 
 	empHandler := handlers.NewEmployeeHandler(regService, empService)
 	attHandler := handlers.NewAttendanceHandler(attService)

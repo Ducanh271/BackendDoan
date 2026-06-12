@@ -5,7 +5,7 @@ import (
 )
 
 type RegisterEmployeeRequest struct {
-	EmployeeCode string   `json:"employee_code" binding:"required"`
+	EmployeeCode string   `json:"employee_code"`
 	Name         string   `json:"name" binding:"required"`
 	Email        *string  `json:"email"`
 	Phone        *string  `json:"phone"`

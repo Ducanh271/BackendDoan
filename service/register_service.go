@@ -2,8 +2,11 @@
 package service
 
 import (
+	"crypto/rand"
 	"encoding/base64"
 	"fmt"
+	"math/big"
+	"strconv"
 	"strings"
 	"time"
 
@@ -12,18 +15,27 @@ import (
 	"duckanh/backend-doan/models"
 	"duckanh/backend-doan/repository"
 	"duckanh/backend-doan/security"
+	"duckanh/backend-doan/utils"
 )
 
 type RegisterService struct {
-	Repo repository.EmployeeRepository
-	AI   ai.AIClient
+	Repo         repository.EmployeeRepository
+	AI           ai.AIClient
+	SMTPHost     string
+	SMTPPort     string
+	SMTPEmail    string
+	SMTPPassword string
 }
 
 // Hàm khởi tạo Service
-func NewRegisterService(repo repository.EmployeeRepository, aiClient ai.AIClient) *RegisterService {
+func NewRegisterService(repo repository.EmployeeRepository, aiClient ai.AIClient, smtpHost, smtpPort, smtpEmail, smtpPassword string) *RegisterService {
 	return &RegisterService{
-		Repo: repo,
-		AI:   aiClient,
+		Repo:         repo,
+		AI:           aiClient,
+		SMTPHost:     smtpHost,
+		SMTPPort:     smtpPort,
+		SMTPEmail:    smtpEmail,
+		SMTPPassword: smtpPassword,
 	}
 }
 
@@ -62,17 +74,21 @@ func (s *RegisterService) RegisterEmployee(req dto.RegisterEmployeeRequest) (*dt
 		}, nil
 	}
 
-	// 4. Nếu AI duyệt Pass -> Lắp ráp dữ liệu thành models.Employee
-	now := time.Now()
-	defaultPassword := req.EmployeeCode + "@123A"
-	hashedPassword, err := security.HashPassword(defaultPassword)
+	// 4. Nếu AI duyệt Pass -> Tự động tạo Mã nhân viên và Mật khẩu
+	employeeCode, err := s.generateEmployeeCode()
+	if err != nil {
+		return nil, fmt.Errorf("lỗi tạo mã nhân viên: %v", err)
+	}
 
+	rawPassword := s.generateRandomPassword(8)
+	hashedPassword, err := security.HashPassword(rawPassword)
 	if err != nil {
 		return nil, fmt.Errorf("lỗi mã hóa mật khẩu: %v", err)
 	}
 
+	now := time.Now()
 	newEmployee := models.Employee{
-		EmployeeCode: req.EmployeeCode,
+		EmployeeCode: employeeCode,
 		Name:         req.Name,
 		Email:        req.Email,
 		Phone:        req.Phone,
@@ -89,13 +105,55 @@ func (s *RegisterService) RegisterEmployee(req dto.RegisterEmployeeRequest) (*dt
 	// 5. Lưu xuống Database
 	err = s.Repo.Save(&newEmployee)
 	if err != nil {
-		return nil, fmt.Errorf("lỗi lưu database (có thể trùng mã NV/Email): %v", err)
+		return nil, fmt.Errorf("lỗi lưu database: %v", err)
 	}
 
-	// 6. Hoàn thành xuất sắc
+	// 6. Gửi email thông báo tài khoản
+	if req.Email != nil && *req.Email != "" {
+		go func() {
+			err := utils.SendRegistrationEmail(*req.Email, req.Name, employeeCode, rawPassword, s.SMTPHost, s.SMTPPort, s.SMTPEmail, s.SMTPPassword)
+			if err != nil {
+				fmt.Printf("Lỗi gửi email đăng ký cho %s: %v\n", *req.Email, err)
+			}
+		}()
+	}
+
+	// 7. Hoàn thành xuất sắc
 	return &dto.RegisterEmployeeResponse{
 		Status:  "success",
-		Message: "Đăng ký nhân viên thành công!",
+		Message: fmt.Sprintf("Đăng ký thành công! Mã nhân viên: %s. Thông tin đã được gửi vào email.", employeeCode),
 		Stats:   aiResp.Stats,
 	}, nil
+}
+
+func (s *RegisterService) generateEmployeeCode() (string, error) {
+	lastCode, err := s.Repo.GetLastEmployeeCode()
+	if err != nil {
+		return "", err
+	}
+
+	if lastCode == "" {
+		return "CT000001", nil
+	}
+
+	// Giả sử format là CTxxxxxx
+	numStr := lastCode[2:]
+	num, err := strconv.Atoi(numStr)
+	if err != nil {
+		// Nếu không parse được (ví dụ format cũ), bắt đầu lại từ đầu hoặc xử lý khác
+		return "CT000001", nil
+	}
+
+	nextNum := num + 1
+	return fmt.Sprintf("CT%06d", nextNum), nil
+}
+
+func (s *RegisterService) generateRandomPassword(length int) string {
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, length)
+	for i := range b {
+		num, _ := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		b[i] = charset[num.Int64()]
+	}
+	return string(b)
 }

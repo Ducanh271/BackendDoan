@@ -40,6 +40,11 @@ func SetupRoutes(
 	{
 		// Cấp tài khoản mới (POST /api/admin/register)
 		admin.POST("/register", empHandler.Register)
+
+		// Quản lý nhân viên
+		admin.GET("/employees", empHandler.GetAllEmployees)
+		admin.GET("/employees/:id", empHandler.GetEmployeeDetail)
+		admin.GET("/employees/:id/attendance", attHandler.GetEmployeeAttendanceHistory)
 	}
 
 	// ==========================================
@@ -74,5 +79,8 @@ func SetupRoutes(
 
 		// [Protected] Điểm danh qua Mobile App cá nhân
 		attendance.POST("/mobile-check-in", middleware.RequireAuth(jwtSecret), attHandler.MobileCheckIn)
+
+		// [Protected] Xem lịch sử điểm danh cá nhân
+		attendance.GET("/history", middleware.RequireAuth(jwtSecret), attHandler.GetHistory)
 	}
 }

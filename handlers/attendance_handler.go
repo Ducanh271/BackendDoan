@@ -113,3 +113,47 @@ func (h *AttendanceHandler) MobileCheckIn(c *gin.Context) {
 		Stats:        aiResp.Stats,
 	})
 }
+
+func (h *AttendanceHandler) GetHistory(c *gin.Context) {
+	// Trích xuất ID từ JWT Token (được set bởi middleware RequireAuth)
+	empIDVal, exists := c.Get("employee_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "failed", "message": "Không xác định được danh tính"})
+		return
+	}
+	employeeID := empIDVal.(int)
+
+	history, err := h.AttendanceService.GetAttendanceHistory(employeeID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"status": "failed", "message": "Lỗi lấy lịch sử điểm danh: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   history,
+	})
+}
+
+// API: GET /api/admin/employees/:id/attendance
+func (h *AttendanceHandler) GetEmployeeAttendanceHistory(c *gin.Context) {
+	idStr := c.Param("id")
+	var employeeID int
+	_, err := fmt.Sscanf(idStr, "%d", &employeeID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "ID không hợp lệ"})
+		return
+	}
+
+	history, err := h.AttendanceService.GetAttendanceHistory(employeeID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"status": "failed", "message": "Lỗi lấy lịch sử điểm danh: " + err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   history,
+	})
+}
+

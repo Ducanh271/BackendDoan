@@ -10,22 +10,29 @@ import (
 	"fmt"
 	"math"
 	"strings"
+	"time"
 )
 
 const FaceMatchThreshold = 0.45
 
 type AttendanceService struct {
-	EmpRepo    repository.EmployeeRepository
-	ConfigRepo repository.CompanyConfigRepository // BỔ SUNG REPO CẤU HÌNH
-	AI         ai.AIClient
+	EmpRepo        repository.EmployeeRepository
+	ConfigRepo     repository.CompanyConfigRepository // BỔ SUNG REPO CẤU HÌNH
+	AttendanceRepo repository.AttendanceRepository
+	AI             ai.AIClient
 }
 
-func NewAttendanceService(repo repository.EmployeeRepository, configRepo repository.CompanyConfigRepository, aiClient ai.AIClient) *AttendanceService {
+func NewAttendanceService(repo repository.EmployeeRepository, configRepo repository.CompanyConfigRepository, attRepo repository.AttendanceRepository, aiClient ai.AIClient) *AttendanceService {
 	return &AttendanceService{
-		EmpRepo:    repo,
-		ConfigRepo: configRepo,
-		AI:         aiClient,
+		EmpRepo:        repo,
+		ConfigRepo:     configRepo,
+		AttendanceRepo: attRepo,
+		AI:             aiClient,
 	}
+}
+
+func (s *AttendanceService) GetAttendanceHistory(employeeID int) ([]models.AttendanceRecord, error) {
+	return s.AttendanceRepo.GetByEmployeeID(employeeID)
 }
 
 // ==========================================
@@ -119,31 +126,28 @@ func (s *AttendanceService) LogAccessEvent(employeeID *int, accessPoint string, 
 }
 
 func (s *AttendanceService) MobileCheckIn(employeeID int, req dto.MobileCheckInRequest) (*models.Employee, float64, *ai.AIVerifyResponse, error) {
+	tTotal := time.Now()
+	fmt.Printf("\n%s\n", strings.Repeat("=", 55))
+	fmt.Printf("[TIMING] MobileCheckIn — empID=%d, %d ảnh\n", employeeID, len(req.Images))
+	fmt.Printf("%s\n", strings.Repeat("=", 55))
+
 	// 1. LẤY THÔNG TIN NHÂN VIÊN
+	t0 := time.Now()
 	emp, err := s.EmpRepo.FindByID(employeeID)
+	fmt.Printf("  [1] FindEmployee:  %v\n", time.Since(t0))
 	if err != nil {
 		return nil, 0, nil, err
 	}
 
 	// 2. LẤY CẤU HÌNH CÔNG TY (Wi-Fi + GPS)
+	t0 = time.Now()
 	cfg, err := s.ConfigRepo.GetActiveConfig()
+	fmt.Printf("  [2] GetConfig:     %v\n", time.Since(t0))
 	if err != nil {
 		return nil, 0, nil, errors.New("hệ thống chưa được thiết lập cấu hình điểm danh")
 	}
-	// ==========================================
-	// 🐛 ĐOẠN DEBUG WI-FI (In ra Terminal)
-	// ==========================================
-	fmt.Printf("\n=== [DEBUG] WI-FI CHECK ===\n")
-	fmt.Printf(" 📱 Mobile gửi lên BSSID : [%s]\n", req.BSSID)
-	fmt.Printf(" 🏢 BSSID công ty hợp lệ :\n")
-	for i, w := range cfg.Wifis {
-		fmt.Printf("    %d. [%s] (%s)\n", i+1, w.BSSID, w.Description)
-	}
-	fmt.Printf("===========================\n\n")
-	// ==========================================
 
 	// 3. KIỂM TRA WI-FI (Trạm 1)
-	//isValidWifi := false
 	isValidWifi := true
 	for _, wifi := range cfg.Wifis {
 		if strings.EqualFold(wifi.BSSID, req.BSSID) {
@@ -157,7 +161,6 @@ func (s *AttendanceService) MobileCheckIn(employeeID int, req dto.MobileCheckInR
 	}
 
 	// 4. KIỂM TRA GPS (Trạm 2)
-	// distanceToCompany := utils.CalculateDistance(req.Latitude, req.Longitude, cfg.Latitude, cfg.Longitude)
 	distanceToCompany := 0.0
 	if distanceToCompany > cfg.MaxRadius {
 		_ = s.LogAccessEvent(&emp.ID, "Mobile App", "DENIED", 0, fmt.Sprintf("Lệch GPS: %.2fm", distanceToCompany))
@@ -165,12 +168,16 @@ func (s *AttendanceService) MobileCheckIn(employeeID int, req dto.MobileCheckInR
 	}
 
 	// 5. GIẢI MÃ ẢNH & GỌI AI (Trạm 3)
+	t0 = time.Now()
 	imgBytes, err := utils.DecodeBase64Images(req.Images)
+	fmt.Printf("  [3] DecodeImages:  %v\n", time.Since(t0))
 	if err != nil {
 		return nil, 0, nil, err
 	}
 
+	t0 = time.Now()
 	aiResp, err := s.AI.VerifyFace(imgBytes)
+	fmt.Printf("  [4] AI.VerifyFace: %v  ← round-trip tới Python\n", time.Since(t0))
 	if err != nil {
 		return nil, 0, nil, err
 	}
@@ -180,17 +187,43 @@ func (s *AttendanceService) MobileCheckIn(employeeID int, req dto.MobileCheckInR
 	}
 
 	// 6. SO SÁNH KHUÔN MẶT BẰNG EUCLIDEAN DISTANCE
-	dist := utils.EuclideanDistance(emp.Embedding, aiResp.Embedding) // [cite: 58]
+	t0 = time.Now()
+	dist := utils.EuclideanDistance(emp.Embedding, aiResp.Embedding)
+	fmt.Printf("  [5] EuclideanDist: %v  (dist=%.4f)\n", time.Since(t0), dist)
 	if dist == math.MaxFloat64 {
 		return nil, 0, aiResp, errors.New("kích thước vector khuôn mặt không hợp lệ")
 	}
 
-	if dist > FaceMatchThreshold { // [cite: 57, 60]
+	if dist > FaceMatchThreshold {
 		_ = s.LogAccessEvent(&emp.ID, "Mobile App", "DENIED", dist, "Khuôn mặt không khớp")
 		return nil, dist, aiResp, fmt.Errorf("khuôn mặt không khớp (sai số: %.2f)", dist)
 	}
 
-	// 7. ĐIỂM DANH THÀNH CÔNG RỰC RỠ!
+	// 7. ĐIỂM DANH THÀNH CÔNG
 	_ = s.LogAccessEvent(&emp.ID, "Mobile App", "GRANTED", dist, "")
+
+	// 8. LƯU VÀO BẢNG attendance_records
+	t0 = time.Now()
+	today := time.Now().Format("2006-01-02")
+	existingRecord, _ := s.AttendanceRepo.GetTodayRecord(emp.ID, today)
+
+	if existingRecord == nil {
+		newRecord := &models.AttendanceRecord{
+			EmployeeID: emp.ID,
+			Date:       today,
+			CheckIn:    time.Now(),
+			Location:   "Mobile App",
+			Method:     "FACE_RECOGNITION",
+		}
+		_ = s.AttendanceRepo.SaveAttendance(newRecord)
+	} else if existingRecord.CheckOut == nil {
+		now := time.Now()
+		existingRecord.CheckOut = &now
+		_ = s.AttendanceRepo.SaveAttendance(existingRecord)
+	}
+	fmt.Printf("  [6] SaveAttendance:%v\n", time.Since(t0))
+	fmt.Printf("[TIMING] MobileCheckIn TỔNG: %v\n", time.Since(tTotal))
+	fmt.Printf("%s\n\n", strings.Repeat("=", 55))
+
 	return emp, dist, aiResp, nil
 }

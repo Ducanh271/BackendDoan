@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"duckanh/backend-doan/dto"
@@ -77,3 +78,42 @@ func (h *EmployeeHandler) GetMyProfile(c *gin.Context) {
 		"data":    profile,
 	})
 }
+
+// API: GET /api/admin/employees
+func (h *EmployeeHandler) GetAllEmployees(c *gin.Context) {
+	employees, err := h.EmployeeService.GetAllEmployees()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"status": "error", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Lấy danh sách nhân viên thành công",
+		"data":    employees,
+	})
+}
+
+// API: GET /api/admin/employees/:id
+func (h *EmployeeHandler) GetEmployeeDetail(c *gin.Context) {
+	idStr := c.Param("id")
+	var id int
+	_, err := fmt.Sscanf(idStr, "%d", &id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"status": "failed", "message": "ID không hợp lệ"})
+		return
+	}
+
+	detail, err := h.EmployeeService.GetEmployeeDetail(id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"status": "failed", "message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "Lấy chi tiết nhân viên thành công",
+		"data":    detail,
+	})
+}
+

@@ -106,6 +106,45 @@ func (r *MySQLEmployeeRepository) GetAll() ([]models.Employee, error) {
 	return employees, nil
 }
 
+func (r *MySQLEmployeeRepository) GetAllAdmin() ([]models.Employee, error) {
+	query := `
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, status, role, created_at, updated_at 
+		FROM employees 
+		ORDER BY employee_code ASC
+	`
+	rows, err := r.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var employees []models.Employee
+	for rows.Next() {
+		var emp models.Employee
+		err := rows.Scan(
+			&emp.ID,
+			&emp.EmployeeCode,
+			&emp.Name,
+			&emp.Email,
+			&emp.Phone,
+			&emp.DepartmentID,
+			&emp.PositionID,
+			&emp.HireDate,
+			&emp.Status,
+			&emp.Role,
+			&emp.CreatedAt,
+			&emp.UpdatedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("lỗi scan dữ liệu employee: %v", err)
+		}
+
+		employees = append(employees, emp)
+	}
+
+	return employees, nil
+}
+
 func (r *MySQLEmployeeRepository) FindByID(id int) (*models.Employee, error) {
 	query := `
 		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, embedding, status, created_at, updated_at 
@@ -143,6 +182,39 @@ func (r *MySQLEmployeeRepository) FindByID(id int) (*models.Employee, error) {
 		if err != nil {
 			return nil, fmt.Errorf("lỗi parse embedding: %v", err)
 		}
+	}
+
+	return &emp, nil
+}
+
+func (r *MySQLEmployeeRepository) GetByIDAdmin(id int) (*models.Employee, error) {
+	query := `
+		SELECT id, employee_code, name, email, phone, department_id, position_id, hire_date, status, role, created_at, updated_at 
+		FROM employees 
+		WHERE id = ?
+	`
+	row := r.DB.QueryRow(query, id)
+
+	var emp models.Employee
+	err := row.Scan(
+		&emp.ID,
+		&emp.EmployeeCode,
+		&emp.Name,
+		&emp.Email,
+		&emp.Phone,
+		&emp.DepartmentID,
+		&emp.PositionID,
+		&emp.HireDate,
+		&emp.Status,
+		&emp.Role,
+		&emp.CreatedAt,
+		&emp.UpdatedAt,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("không tìm thấy nhân viên")
+		}
+		return nil, fmt.Errorf("lỗi scan dữ liệu employee: %v", err)
 	}
 
 	return &emp, nil
@@ -195,5 +267,50 @@ func (r *MySQLEmployeeRepository) UpdateOTP(employeeID int, otpCode string, expi
 func (r *MySQLEmployeeRepository) DeleteRefreshToken(employeeID int) error {
 	query := `delete from refresh_tokens where employee_id = ?`
 	_, err := r.DB.Exec(query, employeeID)
+	return err
+}
+
+func (r *MySQLEmployeeRepository) GetLastEmployeeCode() (string, error) {
+	query := `SELECT employee_code FROM employees WHERE employee_code LIKE 'CT%' ORDER BY employee_code DESC LIMIT 1`
+	var code string
+	err := r.DB.QueryRow(query).Scan(&code)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "", nil
+		}
+		return "", err
+	}
+	return code, nil
+}
+
+// CountByRole đếm số nhân viên theo chức vụ (dùng để kiểm tra đã có admin chưa)
+func (r *MySQLEmployeeRepository) CountByRole(role string) (int, error) {
+	var count int
+	err := r.DB.QueryRow(`SELECT COUNT(*) FROM employees WHERE role = ?`, role).Scan(&count)
+	return count, err
+}
+
+// CreateAdmin tạo tài khoản admin trực tiếp (tôn trọng role + is_first_login,
+// khác với Save vốn luôn gán role = "user"). Dùng để seed admin mặc định.
+func (r *MySQLEmployeeRepository) CreateAdmin(emp *models.Employee) error {
+	query := `
+		INSERT INTO employees (employee_code, name, password_hash, role, is_first_login, status, created_at, updated_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+	`
+	now := time.Now()
+	status := "ACTIVE"
+	if emp.Status != "" {
+		status = emp.Status
+	}
+	_, err := r.DB.Exec(query,
+		emp.EmployeeCode,
+		emp.Name,
+		emp.PasswordHash,
+		emp.Role,
+		emp.IsFirstLogin,
+		status,
+		now,
+		now,
+	)
 	return err
 }
